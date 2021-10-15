@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="stylesheet" href="css/reset.css"> <!-- CSS reset -->
+	<link rel="stylesheet" href="css/style.css"> <!-- Resource style -->
+	<!-- leaflet css -->
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+   integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+   crossorigin=""/>
+	<script src="js/modernizr.js"></script> <!-- Modernizr -->
+
+	<style type="text/css">
+		/* Set map parameters */
+    #map {
+      position: fixed;
+      top: 100px;
+      bottom: 0px;
+			left: 0px;
+      width: 100%;
+    }
+
+    li{
+        cursor: pointer;
+    }
+
+	</style>
+
+	<title>Iowa Green Books Map</title>
+</head>
+<body>
+	<header>
+		<div class="cd-dropdown-wrapper">
+			<a class="cd-dropdown-trigger" href="#0">City Insets</a>
+			<nav class="cd-dropdown">
+				<h2>Title</h2>
+				<a href="#0" class="cd-close">Close</a>
+				<ul class="cd-dropdown-content">
+					<li><a onclick="zoom2latLng1();">Cedar Rapids</a></li>
+					<li><a onclick="zoom2latLng2();">Clinton</a></li>
+					<li><a onclick="zoom2latLng3();">Council Bluffs</a></li>
+					<li><a onclick="zoom2latLng4();">Davenport</a></li>
+					<li><a onclick="zoom2latLng5();">Des Moines</a></li>
+					<li><a onclick="zoom2latLng6();">Dubuque</a></li>
+					<li><a onclick="zoom2latLng7();">Iowa City</a></li>
+					<li><a onclick="zoom2latLng8();">Newton</a></li>
+					<li><a onclick="zoom2latLng9();">Ottumwa</a></li>
+					<li><a onclick="zoom2latLng10();">Sioux City</a></li>
+					<li><a onclick="zoom2latLng11();">Waterloo</a></li>
+					<li><a onclick="zoom2latLng12();">Main Map</a></li>
+				</ul> <!-- .cd-dropdown-content -->
+			</nav> <!-- .cd-dropdown -->
+		</div> <!-- .cd-dropdown-wrapper -->
+	</header>
+
+	<main class="cd-main-content">
+		<!-- map -->
+  	<div id="map"></div>
+	</main>
+<!-- leaflet js -->
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+	   integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+	   crossorigin=""></script>
+<script src="js/jquery-2.1.1.js"></script>
+<script src="js/jquery.menu-aim.js"></script> <!-- menu aim -->
+<script src="js/main.js"></script> <!-- Resource jQuery -->
+
+<script>
+
+	var map = L.map('map').setView([42.0667, -93.4], 8);
+
+	// use the Jawg Sunny base map - nice, clean, not fussy
+  L.tileLayer('https://{s}.tile.jawg.io/jawg-sunny/{z}/{x}/{y}{r}.png?access-token=odaScIS8yTVoAy0mjYBoHMXXasRTvbpjrTyjwQiZutN3FU3WE82xJ6FyqbbglesB', {
+    attribution: '<a href="http://jawg.io" title="Tiles Courtesy of Jawg Maps" target="_blank">&copy; <b>Jawg</b>Maps</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    minZoom: 0,
+    maxZoom: 22,
+    subdomains: 'abcd',
+    accessToken: 'odaScIS8yTVoAy0mjYBoHMXXasRTvbpjrTyjwQiZutN3FU3WE82xJ6FyqbbglesB'
+  }).addTo(map); // add the base map to the map;
+
+	// zoom to functions for inset dropdown
+	function zoom2latLng1() {
+    map.flyTo([41.983056, -91.668611],13);  // zoom to Cedar Rapids
+	};
+	function zoom2latLng2() {
+    map.flyTo([41.846944, -90.207222],13);  // zoom to Clinton
+	};
+	function zoom2latLng3() {
+    map.flyTo([41.253, -95.862],13);  // zoom to Council Bluffs
+	};
+	function zoom2latLng4() {
+    map.flyTo([41.543056, -90.590833],13);  // zoom to Davenport
+	};
+	function zoom2latLng5() {
+    map.flyTo([41.590833, -93.620833],13);  // zoom to Des Moines
+	};
+	function zoom2latLng6() {
+    map.flyTo([42.5, -90.69],13);  // zoom to Dubuque
+	};
+	function zoom2latLng7() {
+    map.flyTo([41.66, -91.53],13);  // zoom to Iowa City
+	};
+	function zoom2latLng8() {
+    map.flyTo([41.698611, -93.046944],13);  // zoom to Newton
+	};
+	function zoom2latLng9() {
+    map.flyTo([41.013056, -92.414722],13);  // zoom to Ottumwa
+	};
+	function zoom2latLng10() {
+    map.flyTo([42.498056, -96.395556],13);  // zoom to Sioux City
+	};
+	function zoom2latLng11() {
+    map.flyTo([42.492436, -92.346161],13);  // zoom to Waterloo
+	};
+	function zoom2latLng12() {
+    map.flyTo([42.0667, -93.4],8);  // zoom out to Iowa
+	};
+
+</script>
+
+</body>
+</html>
