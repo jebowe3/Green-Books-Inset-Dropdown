@@ -26,6 +26,36 @@
 			width: 100%;
 		}
 
+		/* Set time slider styles */
+    #slider {
+      position: fixed;
+      height: 25px;
+			bottom: 10px;
+      left: 125px;
+      z-index: 1000;
+      background-color: #FFFFFF;
+      border-radius: 3px;
+      box-shadow: 0px 0px 0px 2px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Set temporal legend styles */
+    #temporal {
+      height: 25px;
+      width: 86px;
+      background-color: #FFFFFF;
+      border-radius: 3px;
+      box-shadow: 0px 0px 0px 2px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Set the styles for the text span in the temporal legend */
+    #temporal span {
+      font-family: 'Montserrat', sans-serif;
+      position: absolute;
+      font-size: 13px;
+      bottom: 2px;
+      left: 10px;
+    }
+
 		li {
 			cursor: pointer;
 		}
@@ -62,6 +92,15 @@
 	<main class="cd-main-content">
 		<!-- map -->
 		<div id="map"></div>
+		<!-- ui slider -->
+	  <div id="slider" class="leaflet-control">
+	    <!-- Use the first and last year of the time data as the min and max. Set the initial value as the first year. Set the steps at one year. -->
+	    <input type="range" min="1939" max="1966" value="1939" step="1" class="slider" />
+	  </div>
+	  <!-- temporal legend -->
+	  <div id='temporal'>
+	    <h5 class='txt-bold'><span id='span'></span></h5>
+	  </div>
 	</main>
 	<!-- leaflet js -->
 	<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
@@ -209,8 +248,104 @@
 	          this.openPopup();
 	        });
 				} // end onEachFeature
-			}).addTo(map);
+			});
+
+			// define the value in the slider when the map loads
+      let currentYear = $('.slider').val();
+
+			// call functions defined below
+      sequenceUI(gbPts); // calls the time slider and sends the layer to it
+      createTemporalLegend(currentYear); // calls the createTemporalLegend function
+      updatePoints(gbPts, currentYear); // calls the updatePoints function to update the points
 		});
+
+		// call the UI slider with a function called "sequenceUI"
+    function sequenceUI(gbPts) { // feed it the points data
+
+      // use the jQuery ajax method to get the slider element
+      $('.slider')
+        .on('input change', function() { // when the input changes...
+          let currentYear = $(this).val(); // identify the year selected with "currentYear"
+          createTemporalLegend(currentYear); // call the createTemporalLegend function
+          updatePoints(gbPts, currentYear); // calls the updatePoints function to update the points data
+        });
+
+    }; // End sequenceUI function
+
+		// Add a temporal legend in sync with the UI slider
+    function createTemporalLegend(currentYear) { // feed it the selected year
+
+      // define the temporal legend with a Leaflet control
+      const temporalLegend = L.control({
+        position: 'bottomleft' // place the temporal legend at bottom left corner
+      });
+
+      // when added to the map
+      temporalLegend.onAdd = function(map) {
+
+        const div = L.DomUtil.get("temporal"); // get the div
+
+        // disable the mouse events
+        L.DomEvent.addListener(div, 'mousedown', function(e) {
+          L.DomEvent.stopPropagation(e);
+        });
+
+        return div; // return the div from the function
+
+      }
+
+      $('#temporal span').html("Year: " + currentYear); // change grade value to that currently selected by UI slider
+
+      temporalLegend.addTo(map); // add the temporal legend to the map
+
+    }; // End createTemporalLegend function
+
+		// Define updatePoints function and feed it the points data and the user-selected year
+    function updatePoints(gbPts, currentYear) {
+      // access each layer in the points data
+      gbPts.eachLayer(function(layer) {
+        // define the point year
+        let year = layer.feature.properties.Date;
+				// use conditional logic to test if the layer properties match the time slider year
+        if (year == currentYear) {
+					// if there is a match, add the points layer to the map
+          layer.addTo(map);
+				} else {
+					map.removeLayer(layer);
+				};
+/*
+				// define the tooltip info
+        let wildfireTooltip = layer.feature.properties.FIRE_NAME + " FIRE, " + layer.feature.properties.ALARM_DATE.substring(0, 10) + "<br>" + parseInt(layer.feature.properties.GIS_ACRES) + " acres burned";
+        // use conditional logic to test if the layer properties match the time slider year
+        if (year == currentYear) {
+          // if there is a match, add the wildfires layer to the map
+          layer.addTo(map);
+          // bind the tooltip to the layer and add the content defined as "wildfireTooltip" above
+          layer.bindTooltip(wildfireTooltip, {
+            sticky: true,
+            className: "tooltip",
+          });
+          // change the layer style on mouseover
+          layer.on("mouseover", function(e) {
+            this.setStyle({
+              fillOpacity: 0.7,
+              opacity: 1.0
+            });
+          });
+          // use existing option to reset the styles on mouseout
+          layer.on("mouseout", function(e) {
+            this.setStyle({
+              fillOpacity: 0.3,
+              opacity: 0.7
+            });
+          });
+        } else {
+          // otherwise, remove the layer from the map
+          map.removeLayer(layer);
+        };
+*/
+      });
+    }; // End updateFires function
 	</script>
 
 </body>
