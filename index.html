@@ -19,37 +19,6 @@
 	<script src="js/modernizr.js"></script> <!-- Modernizr -->
 
 	<style type="text/css">
-		@media only screen and (max-width: 380px) {
-
-			/* Set time slider styles */
-			#slider {
-				position: fixed;
-				width: 100px;
-				height: 25px;
-				bottom: 10px;
-				left: 125px;
-				z-index: 1000;
-				background-color: #FFFFFF;
-				border-radius: 3px;
-				box-shadow: 0px 0px 0px 2px rgba(0, 0, 0, 0.3);
-			}
-
-			.slider {
-				width: 95px;
-			}
-
-			.cd-dropdown-wrapper {
-				display: inline-block;
-				position: fixed;
-				height: 40px;
-				left: 46px;
-				top: 10px;
-				/*margin: 30px 0 0 90%;*/
-				-webkit-font-smoothing: antialiased;
-				-moz-osx-font-smoothing: grayscale;
-				z-index: 800;
-			}
-		}
 
 		/* Set map parameters */
 		#map {
@@ -104,7 +73,7 @@
 			position: fixed;
 			height: 25px;
 			bottom: 20px;
-			left: 125px;
+			left: 106px;
 			z-index: 700;
 			background-color: #FFFFFF;
 			border-radius: 3px;
@@ -114,7 +83,7 @@
 		/* Set temporal legend styles */
 		#temporal {
 			height: 25px;
-			width: 86px;
+			width: 83px;
 			bottom: 10px;
 			z-index: 700;
 			background-color: #FFFFFF;
@@ -134,6 +103,46 @@
 		li {
 			cursor: pointer;
 		}
+
+		@media only screen and (max-width: 380px) {
+
+			/* Set time slider styles */
+			#slider {
+				position: fixed;
+				width: 98px;
+				height: 25px;
+				bottom: 10px;
+				left: 106px;
+				z-index: 1000;
+				background-color: #FFFFFF;
+				border-radius: 3px;
+				box-shadow: 0px 0px 0px 2px rgba(0, 0, 0, 0.3);
+			}
+
+			.slider {
+				width: 93px;
+			}
+
+			.cd-dropdown-wrapper {
+				display: inline-block;
+				position: fixed;
+				height: 40px;
+				left: 46px;
+				top: 10px;
+				/*margin: 30px 0 0 90%;*/
+				-webkit-font-smoothing: antialiased;
+				-moz-osx-font-smoothing: grayscale;
+				z-index: 800;
+			}
+
+			/* does not work as intended, FIX */
+			.leaflet-control-layers,
+			.leaflet-top,
+			.leaflet-bottom {
+				z-index: 2000 !important;
+			}
+
+		}
 	</style>
 
 	<title>Iowa Green Books Map</title>
@@ -149,7 +158,7 @@
 
 	<!--</header>-->
 
-	<main class="cd-main-content">
+	<!--<main class="cd-main-content">-->
 		<div class="cd-dropdown-wrapper">
 			<a class="cd-dropdown-trigger" href="#0">City Insets</a>
 			<nav class="cd-dropdown">
@@ -183,7 +192,7 @@
 		<div id='temporal'>
 			<h5 class='txt-bold'><span id='span'></span></h5>
 		</div>
-	</main>
+	<!--</main>-->
 	<!-- leaflet js -->
 	<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
 	<!-- for the markers -->
@@ -303,21 +312,21 @@
 		}).addTo(map);
 
 		// define empty layer groups for each type of amenity
-		const autos = L.layerGroup();
-		const barbers = L.layerGroup();
-		const parlors = L.layerGroup();
-		const cafes = L.layerGroup();
-		const druggists = L.layerGroup();
-		const factories = L.layerGroup();
-		const garages = L.layerGroup();
-		const hotels = L.layerGroup();
-		const motels = L.layerGroup();
-		const publications = L.layerGroup();
-		const restaurants = L.layerGroup();
-		const stations = L.layerGroup();
-		const tailors = L.layerGroup();
-		const taverns = L.layerGroup();
-		const homes = L.layerGroup();
+		const autos = L.layerGroup().addTo(map);
+		const barbers = L.layerGroup().addTo(map);
+		const parlors = L.layerGroup().addTo(map);
+		const cafes = L.layerGroup().addTo(map);
+		const druggists = L.layerGroup().addTo(map);
+		const factories = L.layerGroup().addTo(map);
+		const garages = L.layerGroup().addTo(map);
+		const hotels = L.layerGroup().addTo(map);
+		const motels = L.layerGroup().addTo(map);
+		const publications = L.layerGroup().addTo(map);
+		const restaurants = L.layerGroup().addTo(map);
+		const stations = L.layerGroup().addTo(map);
+		const tailors = L.layerGroup().addTo(map);
+		const taverns = L.layerGroup().addTo(map);
+		const homes = L.layerGroup().addTo(map);
 
 		// define the overlays
 		const overlays = {
@@ -360,6 +369,9 @@
 			collapsed: isCollapsed
 		}).addTo(map);
 
+		// define the value in the slider
+		let currentYear = $('.slider').val();
+
 		const pointToLayerOpts = function(feature, ll) {
 			// return a marker
 			return L.marker(ll, {
@@ -374,7 +386,12 @@
 
 		const onEachFeatureOpts = function(feature, layer) {
 			// define the layer feature properties
-			const props = layer.feature.properties;
+			let props = layer.feature.properties;
+			// define the type attribute
+			let type = props.Type;
+			// define the year attribute
+			let year = props.Date;
+			// bind a popup to the markers
 			layer.bindPopup("<b>" + props.Date + " Green Book" + "<br>" + props.Owner + "</b>" +
 				"<br>Amenity: " + props.Type +
 				"<br>Address: " + props.Address // add website
@@ -382,6 +399,54 @@
 			layer.on('mouseover', function(e) {
 				this.openPopup();
 			});
+			// if the layer's year equals the selected year...
+			if (year == currentYear) {
+				if (type == "Automotives") {
+					autos.addLayer(layer);
+				}
+				if (type == "Barber Shop") {
+					barbers.addLayer(layer);
+				}
+				if (type == "Beauty Parlor") {
+					parlors.addLayer(layer);
+				}
+				if (type == "Cafe") {
+					cafes.addLayer(layer);
+				}
+				if (type == "Drug Store") {
+					druggists.addLayer(layer);
+				}
+				if (type == "Factory Tour") {
+					factories.addLayer(layer);
+				}
+				if (type == "Garage") {
+					garages.addLayer(layer);
+				}
+				if (type == "Hotel") {
+					hotels.addLayer(layer);
+				}
+				if (type == "Motel") {
+					motels.addLayer(layer);
+				}
+				if (type == "Publication") {
+					publications.addLayer(layer);
+				}
+				if (type == "Restaurant") {
+					restaurants.addLayer(layer);
+				}
+				if (type == "Service Station") {
+					stations.addLayer(layer);
+				}
+				if (type == "Tailor") {
+					tailors.addLayer(layer);
+				}
+				if (type == "Tavern") {
+					taverns.addLayer(layer);
+				}
+				if (type == "Tourist Home") {
+					homes.addLayer(layer);
+				}
+			}
 		};
 
 		// use jquery to load GeoJSON data
@@ -391,6 +456,15 @@
 			// identify them with names and process them through a function
 		).done(function(greenBookPts) {
 
+			// initiate a leaflet GeoJSON layer with L.geoJson, feed it the data, and add to the map
+			const gbPts = L.geoJson(greenBookPts, {
+				// make a layer from points
+				pointToLayer: pointToLayerOpts, //end pointToLayer
+				// On each marker...
+				onEachFeature: onEachFeatureOpts, //end onEachFeature
+			});
+
+/*
 			// initiate a leaflet GeoJSON layer with L.geoJson, feed it the data, and add to the map
 			const autoPts = L.geoJson(greenBookPts, {
 				// filter the points
@@ -556,26 +630,23 @@
 				// On each marker...
 				onEachFeature: onEachFeatureOpts, //end onEachFeature
 			});
-
-			// define the value in the slider when the map loads
-			let currentYear = $('.slider').val();
+*/
 
 			// call functions defined below
-			sequenceUI(autoPts, barberPts, beautyPts, cafePts, drugPts, factoryPts, garagePts, hotelPts, motelPts, pubPts, restPts, servicePts, tailorPts, tavernPts, touristPts); // calls the time slider and sends the layer to it
+			sequenceUI(gbPts/*autoPts, barberPts, beautyPts, cafePts, drugPts, factoryPts, garagePts, hotelPts, motelPts, pubPts, restPts, servicePts, tailorPts, tavernPts, touristPts*/); // calls the time slider and sends the layer to it
 			createTemporalLegend(currentYear); // calls the createTemporalLegend function
-			updatePoints(autoPts, barberPts, beautyPts, cafePts, drugPts, factoryPts, garagePts, hotelPts, motelPts, pubPts, restPts, servicePts, tailorPts, tavernPts, touristPts, currentYear); // calls the updatePoints function to update the points
+			updatePoints(gbPts, /*autoPts, barberPts, beautyPts, cafePts, drugPts, factoryPts, garagePts, hotelPts, motelPts, pubPts, restPts, servicePts, tailorPts, tavernPts, touristPts, */currentYear); // calls the updatePoints function to update the points
 		});
 
 		// call the UI slider with a function called "sequenceUI"
-		function sequenceUI(autoPts, barberPts, beautyPts, cafePts, drugPts, factoryPts, garagePts, hotelPts, motelPts, pubPts, restPts, servicePts, tailorPts, tavernPts, touristPts) { // feed it the points data
+		function sequenceUI(gbPts/*autoPts, barberPts, beautyPts, cafePts, drugPts, factoryPts, garagePts, hotelPts, motelPts, pubPts, restPts, servicePts, tailorPts, tavernPts, touristPts*/) { // feed it the points data
 
 			// use the jQuery ajax method to get the slider element
 			$('.slider')
 				.on('input change', function() { // when the input changes...
 					let currentYear = $(this).val(); // identify the year selected with "currentYear"
 					createTemporalLegend(currentYear); // call the createTemporalLegend function
-					updatePoints(autoPts, barberPts, beautyPts, cafePts, drugPts, factoryPts, garagePts, hotelPts, motelPts, pubPts, restPts, servicePts, tailorPts, tavernPts, touristPts,
-					currentYear); // calls the updatePoints function to update the points data
+					updatePoints(gbPts, /*autoPts, barberPts, beautyPts, cafePts, drugPts, factoryPts, garagePts, hotelPts, motelPts, pubPts, restPts, servicePts, tailorPts, tavernPts, touristPts, */currentYear); // calls the updatePoints function to update the points data
 				});
 
 		}; // End sequenceUI function
@@ -609,8 +680,170 @@
 		}; // End createTemporalLegend function
 
 		// Define updatePoints function and feed it the points data and the user-selected year
-		function updatePoints(autoPts, barberPts, beautyPts, cafePts, drugPts, factoryPts, garagePts, hotelPts, motelPts, pubPts, restPts, servicePts, tailorPts, tavernPts, touristPts, currentYear) {
+		function updatePoints(gbPts, /*autoPts, barberPts, beautyPts, cafePts, drugPts, factoryPts, garagePts, hotelPts, motelPts, pubPts, restPts, servicePts, tailorPts, tavernPts, touristPts, */currentYear) {
 
+			// access each layer in the points data
+			gbPts.eachLayer(function(layer) {
+
+				// define the point type
+				let type = layer.feature.properties.Type;
+
+				if (type == "Automotives") {
+					autos.addLayer(layer);
+				}
+				if (type == "Barber Shop") {
+					barbers.addLayer(layer);
+				}
+				if (type == "Beauty Parlor") {
+					parlors.addLayer(layer);
+				}
+				if (type == "Cafe") {
+					cafes.addLayer(layer);
+				}
+				if (type == "Drug Store") {
+					druggists.addLayer(layer);
+				}
+				if (type == "Factory Tour") {
+					factories.addLayer(layer);
+				}
+				if (type == "Garage") {
+					garages.addLayer(layer);
+				}
+				if (type == "Hotel") {
+					hotels.addLayer(layer);
+				}
+				if (type == "Motel") {
+					motels.addLayer(layer);
+				}
+				if (type == "Publication") {
+					publications.addLayer(layer);
+				}
+				if (type == "Restaurant") {
+					restaurants.addLayer(layer);
+				}
+				if (type == "Service Station") {
+					stations.addLayer(layer);
+				}
+				if (type == "Tailor") {
+					tailors.addLayer(layer);
+				}
+				if (type == "Tavern") {
+					taverns.addLayer(layer);
+				}
+				if (type == "Tourist Home") {
+					homes.addLayer(layer);
+				}
+
+			});
+
+			// for each layer in the layer groups...
+			autos.eachLayer(function(layer) {
+				// if the layer's year is not equal to the selected year...
+				if (layer.feature.properties.Date != currentYear) {
+					// remove the layer
+					autos.removeLayer(layer);
+				}
+			});
+			barbers.eachLayer(function(layer) {
+				// if the layer's year is not equal to the selected year...
+				if (layer.feature.properties.Date != currentYear) {
+					// remove the layer
+					barbers.removeLayer(layer);
+				}
+			});
+			parlors.eachLayer(function(layer) {
+				// if the layer's year is not equal to the selected year...
+				if (layer.feature.properties.Date != currentYear) {
+					// remove the layer
+					parlors.removeLayer(layer);
+				}
+			});
+			cafes.eachLayer(function(layer) {
+				// if the layer's year is not equal to the selected year...
+				if (layer.feature.properties.Date != currentYear) {
+					// remove the layer
+					cafes.removeLayer(layer);
+				}
+			});
+			druggists.eachLayer(function(layer) {
+				// if the layer's year is not equal to the selected year...
+				if (layer.feature.properties.Date != currentYear) {
+					// remove the layer
+					druggists.removeLayer(layer);
+				}
+			});
+			factories.eachLayer(function(layer) {
+				// if the layer's year is not equal to the selected year...
+				if (layer.feature.properties.Date != currentYear) {
+					// remove the layer
+					factories.removeLayer(layer);
+				}
+			});
+			garages.eachLayer(function(layer) {
+				// if the layer's year is not equal to the selected year...
+				if (layer.feature.properties.Date != currentYear) {
+					// remove the layer
+					garages.removeLayer(layer);
+				}
+			});
+			hotels.eachLayer(function(layer) {
+				// if the layer's year is not equal to the selected year...
+				if (layer.feature.properties.Date != currentYear) {
+					// remove the layer
+					hotels.removeLayer(layer);
+				}
+			});
+			motels.eachLayer(function(layer) {
+				// if the layer's year is not equal to the selected year...
+				if (layer.feature.properties.Date != currentYear) {
+					// remove the layer
+					motels.removeLayer(layer);
+				}
+			});
+			publications.eachLayer(function(layer) {
+				// if the layer's year is not equal to the selected year...
+				if (layer.feature.properties.Date != currentYear) {
+					// remove the layer
+					publications.removeLayer(layer);
+				}
+			});
+			restaurants.eachLayer(function(layer) {
+				// if the layer's year is not equal to the selected year...
+				if (layer.feature.properties.Date != currentYear) {
+					// remove the layer
+					restaurants.removeLayer(layer);
+				}
+			});
+			stations.eachLayer(function(layer) {
+				// if the layer's year is not equal to the selected year...
+				if (layer.feature.properties.Date != currentYear) {
+					// remove the layer
+					stations.removeLayer(layer);
+				}
+			});
+			tailors.eachLayer(function(layer) {
+				// if the layer's year is not equal to the selected year...
+				if (layer.feature.properties.Date != currentYear) {
+					// remove the layer
+					tailors.removeLayer(layer);
+				}
+			});
+			taverns.eachLayer(function(layer) {
+				// if the layer's year is not equal to the selected year...
+				if (layer.feature.properties.Date != currentYear) {
+					// remove the layer
+					taverns.removeLayer(layer);
+				}
+			});
+			homes.eachLayer(function(layer) {
+				// if the layer's year is not equal to the selected year...
+				if (layer.feature.properties.Date != currentYear) {
+					// remove the layer
+					homes.removeLayer(layer);
+				}
+			});
+
+/*
 			// access each layer in the points data
 			autoPts.eachLayer(function(layer) {
 				// define the point year
@@ -821,8 +1054,8 @@
 					homes.removeLayer(touristPts);
 				};
 			});
-
-		}; // End updateFires function
+*/
+}; // End updatePoints function
 	</script>
 
 </body>
