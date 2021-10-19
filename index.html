@@ -9,6 +9,8 @@
 	<link rel="stylesheet" href="css/style.css"> <!-- Resource style -->
 	<!-- leaflet css -->
 	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
+	<!-- fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Cutive+Mono|Merriweather:700|Muli:400,700&display=swap" rel="stylesheet">
 	<!-- for markers -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.10.2/css/all.css">
@@ -17,14 +19,71 @@
 	<script src="js/modernizr.js"></script> <!-- Modernizr -->
 
 	<style type="text/css">
+		@media only screen and (max-width: 380px) {
+			/* Set time slider styles */
+	    #slider {
+	      position: fixed;
+				width: 100px;
+	      height: 25px;
+				bottom: 10px;
+	      left: 125px;
+	      z-index: 1000;
+	      background-color: #FFFFFF;
+	      border-radius: 3px;
+	      box-shadow: 0px 0px 0px 2px rgba(0, 0, 0, 0.3);
+	    }
+
+			.slider {
+				width: 95px;
+			}
+		}
 		/* Set map parameters */
 		#map {
 			position: fixed;
-			top: 100px;
+			top: 0px;
 			bottom: 0px;
 			left: 0px;
 			width: 100%;
 		}
+
+		/* Add header */
+    header {
+      /*background-image: url('images/horserace.png');
+      position: fixed;
+      width: 100%;
+      height: 100px;
+			*/
+      background-color: #000000;
+			/*
+      box-shadow: 0px 5px 5px black;
+      z-index: 800;
+			*/
+    }
+
+		/* Set and style fonts for text in map */
+    h1 {
+      font-family: 'Muli', sans-serif;
+      font-size: 30px;
+      display: inline-block;
+      color: #ffff00;
+      margin-top: 0.5em;
+      margin-bottom: 0.0em;
+      margin-left: 0.5em;
+      margin-right: 0;
+      font-weight: normal;
+    }
+
+    h2 {
+      font-family: 'Merriweather', serif;
+      font-size: 13px;
+      display: inline-block;
+      color: #f7f4ea;
+      margin-top: 0.25em;
+      margin-bottom: 0.0em;
+      margin-left: 1.25em;
+      margin-right: 0;
+      font-weight: normal;
+    }
 
 		/* Set time slider styles */
     #slider {
@@ -65,11 +124,20 @@
 </head>
 
 <body>
+	<!--
 	<header>
+		<h1>Green Book Amenities, Iowa: 1939-1966</h1><br>
+    <h2>Map by <a href='https://jebowe3.github.io/Map-Portfolio/' style='color:#f7f4ea;'>Jay Bowen</a>, 2020 | Markers customized with <a href='https://github.com/coryasilva/Leaflet.ExtraMarkers' style='color:#f7f4ea;'>Leaflet Extra Markers</a> and
+      <a href='https://github.com/lvoogdt/Leaflet.awesome-markers' style='color:#f7f4ea;'>Leaflet Awesome Markers</a>, based on <a href='https://fontawesome.com/license' style='color:#f7f4ea;'>Font Awesome</a> icons</h2>-->
+
+
+	<!--</header>-->
+
+	<main class="cd-main-content">
 		<div class="cd-dropdown-wrapper">
 			<a class="cd-dropdown-trigger" href="#0">City Insets</a>
 			<nav class="cd-dropdown">
-				<h2>Title</h2>
+				<!--<h2>Title</h2>-->
 				<a href="#0" class="cd-close">Close</a>
 				<ul class="cd-dropdown-content">
 					<li><a onclick="zoom2latLng1();">Cedar Rapids</a></li>
@@ -79,17 +147,15 @@
 					<li><a onclick="zoom2latLng5();">Des Moines</a></li>
 					<li><a onclick="zoom2latLng6();">Dubuque</a></li>
 					<li><a onclick="zoom2latLng7();">Iowa City</a></li>
-					<li><a onclick="zoom2latLng8();">Newton</a></li>
-					<li><a onclick="zoom2latLng9();">Ottumwa</a></li>
-					<li><a onclick="zoom2latLng10();">Sioux City</a></li>
-					<li><a onclick="zoom2latLng11();">Waterloo</a></li>
-					<li><a onclick="zoom2latLng12();">Main Map</a></li>
+					<li><a onclick="zoom2latLng8();">Keokuk</a></li>
+					<li><a onclick="zoom2latLng9();">Newton</a></li>
+					<li><a onclick="zoom2latLng10();">Ottumwa</a></li>
+					<li><a onclick="zoom2latLng11();">Sioux City</a></li>
+					<li><a onclick="zoom2latLng12();">Waterloo</a></li>
+					<li><a onclick="zoom2latLng13();">Main Map</a></li>
 				</ul> <!-- .cd-dropdown-content -->
 			</nav> <!-- .cd-dropdown -->
 		</div> <!-- .cd-dropdown-wrapper -->
-	</header>
-
-	<main class="cd-main-content">
 		<!-- map -->
 		<div id="map"></div>
 		<!-- ui slider -->
@@ -152,22 +218,26 @@
 		};
 
 		function zoom2latLng8() {
-			map.flyTo([41.698611, -93.046944], 13); // zoom to Newton
+			map.flyTo([40.397222, -91.385], 13); // zoom to Keokuk
 		};
 
 		function zoom2latLng9() {
-			map.flyTo([41.013056, -92.414722], 13); // zoom to Ottumwa
+			map.flyTo([41.698611, -93.046944], 13); // zoom to Newton
 		};
 
 		function zoom2latLng10() {
-			map.flyTo([42.498056, -96.395556], 13); // zoom to Sioux City
+			map.flyTo([41.013056, -92.414722], 13); // zoom to Ottumwa
 		};
 
 		function zoom2latLng11() {
-			map.flyTo([42.492436, -92.346161], 13); // zoom to Waterloo
+			map.flyTo([42.498056, -96.395556], 13); // zoom to Sioux City
 		};
 
 		function zoom2latLng12() {
+			map.flyTo([42.492436, -92.346161], 13); // zoom to Waterloo
+		};
+
+		function zoom2latLng13() {
 			map.flyTo([42.0667, -93.4], 8); // zoom out to Iowa
 		};
 
@@ -216,58 +286,262 @@
 			position: 'bottomright'
 		}).addTo(map);
 
+		// define empty layer groups for each type of amenity
+		const autos = L.layerGroup();
+		const barbers = L.layerGroup();
+		const parlors = L.layerGroup();
+		const cafes = L.layerGroup();
+		const druggists = L.layerGroup();
+		const factories = L.layerGroup();
+		const garages = L.layerGroup();
+		const hotels = L.layerGroup();
+		const motels = L.layerGroup();
+		const publications = L.layerGroup();
+		const restaurants = L.layerGroup();
+		const stations = L.layerGroup();
+		const tailors = L.layerGroup();
+		const taverns = L.layerGroup();
+		const homes = L.layerGroup();
+
+		// define the overlays
+		const overlays = {
+			"Auto Shops": autos,
+			"Barber Shops": barbers,
+			"Beauty Parlors": parlors,
+			"Cafes": cafes,
+			"Drug Stores": druggists,
+			"Factory Tours": factories,
+			"Garages": garages,
+			"Hotels": hotels,
+			"Motels": motels,
+			"Publications": publications,
+			"Restaurants": restaurants,
+			"Service Stations": stations,
+			"Tailors": tailors,
+			"Taverns": taverns,
+			"Tourist Homes": homes,
+		};
+
+		// all done with the layers, add them to layer control
+		const controlLayers = L.control.layers(null, overlays, {
+			collapsed: false,
+		}).addTo(map);
+
+		const pointToLayerOpts = function(feature, ll) {
+			// return a marker
+			return L.marker(ll, {
+				icon: L.ExtraMarkers.icon({
+					icon: getIcon(feature.properties.Type),
+					prefix: 'fas',
+					markerColor: getColor(feature.properties.Type),
+					iconColor: 'white'
+				})
+			})
+		};
+
+		const onEachFeatureOpts = function(feature, layer) {
+			// define the layer feature properties
+			const props = layer.feature.properties;
+			layer.bindPopup("<b>" + props.Date + " Green Book" + "<br>" + props.Owner + "</b>" +
+				"<br>Amenity: " + props.Type +
+				"<br>Address: " + props.Address // add website
+			);
+			layer.on('mouseover', function(e) {
+				this.openPopup();
+			});
+		};
+
 		// use jquery to load GeoJSON data
 		$.when(
 			$.getJSON("data/GreenBookPoints.geojson"),
 			// when the files are done loading,
 			// identify them with names and process them through a function
 		).done(function(greenBookPts) {
+
 			// initiate a leaflet GeoJSON layer with L.geoJson, feed it the data, and add to the map
-      const gbPts = L.geoJson(greenBookPts, {
+      const autoPts = L.geoJson(greenBookPts, {
+				// filter the points
+				filter: function(feature, layer) {
+					return feature.properties.Type == "Automotives";
+				},
 				// make a layer from points
-        pointToLayer: function(feature, ll) {
-          // return a marker
-          return L.marker(ll, {
-            icon: L.ExtraMarkers.icon({
-              icon: getIcon(feature.properties.Type),
-              prefix: 'fas',
-              markerColor: getColor(feature.properties.Type),
-              iconColor: 'white'
-            })
-          })
-        }, //end pointToLayer
+        pointToLayer: pointToLayerOpts, //end pointToLayer
 				// On each marker...
-        onEachFeature: function(feature, layer) {
-					// define the layer feature properties
-          const props = layer.feature.properties;
-					layer.bindPopup("<b>" + props.Date + " Green Book" + "<br>" + props.Owner + "</b>" +
-	          "<br>Amenity: " + props.Type +
-	          "<br>Address: " + props.Address // add website
-	        );
-	        layer.on('mouseover', function(e) {
-	          this.openPopup();
-	        });
-				} // end onEachFeature
+        onEachFeature: onEachFeatureOpts, //end onEachFeature
+			});
+
+			const barberPts = L.geoJson(greenBookPts, {
+				// filter the points
+				filter: function(feature, layer) {
+					return feature.properties.Type == "Barber Shop";
+				},
+				// make a layer from points
+        pointToLayer: pointToLayerOpts, //end pointToLayer
+				// On each marker...
+        onEachFeature: onEachFeatureOpts, //end onEachFeature
+			});
+
+			const beautyPts = L.geoJson(greenBookPts, {
+				// filter the points
+				filter: function(feature, layer) {
+					return feature.properties.Type == "Beauty Parlor";
+				},
+				// make a layer from points
+        pointToLayer: pointToLayerOpts, //end pointToLayer
+				// On each marker...
+        onEachFeature: onEachFeatureOpts, //end onEachFeature
+			});
+
+			const cafePts = L.geoJson(greenBookPts, {
+				// filter the points
+				filter: function(feature, layer) {
+					return feature.properties.Type == "Cafe";
+				},
+				// make a layer from points
+        pointToLayer: pointToLayerOpts, //end pointToLayer
+				// On each marker...
+        onEachFeature: onEachFeatureOpts, //end onEachFeature
+			});
+
+			const drugPts = L.geoJson(greenBookPts, {
+				// filter the points
+				filter: function(feature, layer) {
+					return feature.properties.Type == "Drug Store";
+				},
+				// make a layer from points
+        pointToLayer: pointToLayerOpts, //end pointToLayer
+				// On each marker...
+        onEachFeature: onEachFeatureOpts, //end onEachFeature
+			});
+
+			const factoryPts = L.geoJson(greenBookPts, {
+				// filter the points
+				filter: function(feature, layer) {
+					return feature.properties.Type == "Factory Tour";
+				},
+				// make a layer from points
+        pointToLayer: pointToLayerOpts, //end pointToLayer
+				// On each marker...
+        onEachFeature: onEachFeatureOpts, //end onEachFeature
+			});
+
+			const garagePts = L.geoJson(greenBookPts, {
+				// filter the points
+				filter: function(feature, layer) {
+					return feature.properties.Type == "Garage";
+				},
+				// make a layer from points
+        pointToLayer: pointToLayerOpts, //end pointToLayer
+				// On each marker...
+        onEachFeature: onEachFeatureOpts, //end onEachFeature
+			});
+
+			const hotelPts = L.geoJson(greenBookPts, {
+				// filter the points
+				filter: function(feature, layer) {
+					return feature.properties.Type == "Hotel";
+				},
+				// make a layer from points
+        pointToLayer: pointToLayerOpts, //end pointToLayer
+				// On each marker...
+        onEachFeature: onEachFeatureOpts, //end onEachFeature
+			});
+
+			const motelPts = L.geoJson(greenBookPts, {
+				// filter the points
+				filter: function(feature, layer) {
+					return feature.properties.Type == "Motel";
+				},
+				// make a layer from points
+        pointToLayer: pointToLayerOpts, //end pointToLayer
+				// On each marker...
+        onEachFeature: onEachFeatureOpts, //end onEachFeature
+			});
+
+			const pubPts = L.geoJson(greenBookPts, {
+				// filter the points
+				filter: function(feature, layer) {
+					return feature.properties.Type == "Publication";
+				},
+				// make a layer from points
+        pointToLayer: pointToLayerOpts, //end pointToLayer
+				// On each marker...
+        onEachFeature: onEachFeatureOpts, //end onEachFeature
+			});
+
+			const restPts = L.geoJson(greenBookPts, {
+				// filter the points
+				filter: function(feature, layer) {
+					return feature.properties.Type == "Restaurant";
+				},
+				// make a layer from points
+        pointToLayer: pointToLayerOpts, //end pointToLayer
+				// On each marker...
+        onEachFeature: onEachFeatureOpts, //end onEachFeature
+			});
+
+			const servicePts = L.geoJson(greenBookPts, {
+				// filter the points
+				filter: function(feature, layer) {
+					return feature.properties.Type == "Service Station";
+				},
+				// make a layer from points
+        pointToLayer: pointToLayerOpts, //end pointToLayer
+				// On each marker...
+        onEachFeature: onEachFeatureOpts, //end onEachFeature
+			});
+
+			const tailorPts = L.geoJson(greenBookPts, {
+				// filter the points
+				filter: function(feature, layer) {
+					return feature.properties.Type == "Tailor";
+				},
+				// make a layer from points
+        pointToLayer: pointToLayerOpts, //end pointToLayer
+				// On each marker...
+        onEachFeature: onEachFeatureOpts, //end onEachFeature
+			});
+
+			const tavernPts = L.geoJson(greenBookPts, {
+				// filter the points
+				filter: function(feature, layer) {
+					return feature.properties.Type == "Tavern";
+				},
+				// make a layer from points
+        pointToLayer: pointToLayerOpts, //end pointToLayer
+				// On each marker...
+        onEachFeature: onEachFeatureOpts, //end onEachFeature
+			});
+
+			const touristPts = L.geoJson(greenBookPts, {
+				// filter the points
+				filter: function(feature, layer) {
+					return feature.properties.Type == "Tourist Home";
+				},
+				// make a layer from points
+        pointToLayer: pointToLayerOpts, //end pointToLayer
+				// On each marker...
+        onEachFeature: onEachFeatureOpts, //end onEachFeature
 			});
 
 			// define the value in the slider when the map loads
       let currentYear = $('.slider').val();
 
 			// call functions defined below
-      sequenceUI(gbPts); // calls the time slider and sends the layer to it
+      sequenceUI(autoPts, barberPts, beautyPts, cafePts, drugPts, factoryPts, garagePts, hotelPts, motelPts, pubPts, restPts, servicePts, tailorPts, tavernPts, touristPts); // calls the time slider and sends the layer to it
       createTemporalLegend(currentYear); // calls the createTemporalLegend function
-      updatePoints(gbPts, currentYear); // calls the updatePoints function to update the points
+      updatePoints(autoPts, barberPts, beautyPts, cafePts, drugPts, factoryPts, garagePts, hotelPts, motelPts, pubPts, restPts, servicePts, tailorPts, tavernPts, touristPts, currentYear); // calls the updatePoints function to update the points
 		});
 
 		// call the UI slider with a function called "sequenceUI"
-    function sequenceUI(gbPts) { // feed it the points data
+    function sequenceUI(autoPts, barberPts, beautyPts, cafePts, drugPts, factoryPts, garagePts, hotelPts, motelPts, pubPts, restPts, servicePts, tailorPts, tavernPts, touristPts) { // feed it the points data
 
       // use the jQuery ajax method to get the slider element
       $('.slider')
         .on('input change', function() { // when the input changes...
           let currentYear = $(this).val(); // identify the year selected with "currentYear"
           createTemporalLegend(currentYear); // call the createTemporalLegend function
-          updatePoints(gbPts, currentYear); // calls the updatePoints function to update the points data
+          updatePoints(autoPts, barberPts, beautyPts, cafePts, drugPts, factoryPts, garagePts, hotelPts, motelPts, pubPts, restPts, servicePts, tailorPts, tavernPts, touristPts, currentYear); // calls the updatePoints function to update the points data
         });
 
     }; // End sequenceUI function
@@ -301,50 +575,219 @@
     }; // End createTemporalLegend function
 
 		// Define updatePoints function and feed it the points data and the user-selected year
-    function updatePoints(gbPts, currentYear) {
-      // access each layer in the points data
-      gbPts.eachLayer(function(layer) {
+    function updatePoints(autoPts, barberPts, beautyPts, cafePts, drugPts, factoryPts, garagePts, hotelPts, motelPts, pubPts, restPts, servicePts, tailorPts, tavernPts, touristPts, currentYear) {
+
+			// access each layer in the points data
+      autoPts.eachLayer(function(layer) {
         // define the point year
         let year = layer.feature.properties.Date;
 				// use conditional logic to test if the layer properties match the time slider year
         if (year == currentYear) {
 					// if there is a match, add the points layer to the map
-          layer.addTo(map);
+          //layer.addTo(map);
+					autos.addLayer(autoPts);
 				} else {
-					map.removeLayer(layer);
+					//map.removeLayer(layer);
+					autos.removeLayer(autoPts);
 				};
-/*
-				// define the tooltip info
-        let wildfireTooltip = layer.feature.properties.FIRE_NAME + " FIRE, " + layer.feature.properties.ALARM_DATE.substring(0, 10) + "<br>" + parseInt(layer.feature.properties.GIS_ACRES) + " acres burned";
-        // use conditional logic to test if the layer properties match the time slider year
-        if (year == currentYear) {
-          // if there is a match, add the wildfires layer to the map
-          layer.addTo(map);
-          // bind the tooltip to the layer and add the content defined as "wildfireTooltip" above
-          layer.bindTooltip(wildfireTooltip, {
-            sticky: true,
-            className: "tooltip",
-          });
-          // change the layer style on mouseover
-          layer.on("mouseover", function(e) {
-            this.setStyle({
-              fillOpacity: 0.7,
-              opacity: 1.0
-            });
-          });
-          // use existing option to reset the styles on mouseout
-          layer.on("mouseout", function(e) {
-            this.setStyle({
-              fillOpacity: 0.3,
-              opacity: 0.7
-            });
-          });
-        } else {
-          // otherwise, remove the layer from the map
-          map.removeLayer(layer);
-        };
-*/
       });
+
+			barberPts.eachLayer(function(layer) {
+        // define the point year
+        let year = layer.feature.properties.Date;
+				// use conditional logic to test if the layer properties match the time slider year
+        if (year == currentYear) {
+					// if there is a match, add the points layer to the map
+          //layer.addTo(map);
+					barbers.addLayer(barberPts);
+				} else {
+					//map.removeLayer(layer);
+					barbers.removeLayer(barberPts);
+				};
+      });
+
+			beautyPts.eachLayer(function(layer) {
+        // define the point year
+        let year = layer.feature.properties.Date;
+				// use conditional logic to test if the layer properties match the time slider year
+        if (year == currentYear) {
+					// if there is a match, add the points layer to the map
+          //layer.addTo(map);
+					parlors.addLayer(beautyPts);
+				} else {
+					//map.removeLayer(layer);
+					parlors.removeLayer(beautyPts);
+				};
+      });
+
+			cafePts.eachLayer(function(layer) {
+        // define the point year
+        let year = layer.feature.properties.Date;
+				// use conditional logic to test if the layer properties match the time slider year
+        if (year == currentYear) {
+					// if there is a match, add the points layer to the map
+          //layer.addTo(map);
+					cafes.addLayer(cafePts);
+				} else {
+					//map.removeLayer(layer);
+					cafes.removeLayer(cafePts);
+				};
+      });
+
+			drugPts.eachLayer(function(layer) {
+        // define the point year
+        let year = layer.feature.properties.Date;
+				// use conditional logic to test if the layer properties match the time slider year
+        if (year == currentYear) {
+					// if there is a match, add the points layer to the map
+          //layer.addTo(map);
+					druggists.addLayer(drugPts);
+				} else {
+					//map.removeLayer(layer);
+					druggists.removeLayer(drugPts);
+				};
+      });
+
+			factoryPts.eachLayer(function(layer) {
+        // define the point year
+        let year = layer.feature.properties.Date;
+				// use conditional logic to test if the layer properties match the time slider year
+        if (year == currentYear) {
+					// if there is a match, add the points layer to the map
+          //layer.addTo(map);
+					factories.addLayer(factoryPts);
+				} else {
+					//map.removeLayer(layer);
+					factories.removeLayer(factoryPts);
+				};
+      });
+
+			garagePts.eachLayer(function(layer) {
+        // define the point year
+        let year = layer.feature.properties.Date;
+				// use conditional logic to test if the layer properties match the time slider year
+        if (year == currentYear) {
+					// if there is a match, add the points layer to the map
+          //layer.addTo(map);
+					garages.addLayer(garagePts);
+				} else {
+					//map.removeLayer(layer);
+					garages.removeLayer(garagePts);
+				};
+      });
+
+			hotelPts.eachLayer(function(layer) {
+        // define the point year
+        let year = layer.feature.properties.Date;
+				// use conditional logic to test if the layer properties match the time slider year
+        if (year == currentYear) {
+					// if there is a match, add the points layer to the map
+          //layer.addTo(map);
+					hotels.addLayer(hotelPts);
+				} else {
+					//map.removeLayer(layer);
+					hotels.removeLayer(hotelPts);
+				};
+      });
+
+			motelPts.eachLayer(function(layer) {
+        // define the point year
+        let year = layer.feature.properties.Date;
+				// use conditional logic to test if the layer properties match the time slider year
+        if (year == currentYear) {
+					// if there is a match, add the points layer to the map
+          //layer.addTo(map);
+					motels.addLayer(motelPts);
+				} else {
+					//map.removeLayer(layer);
+					motels.removeLayer(motelPts);
+				};
+      });
+
+			pubPts.eachLayer(function(layer) {
+        // define the point year
+        let year = layer.feature.properties.Date;
+				// use conditional logic to test if the layer properties match the time slider year
+        if (year == currentYear) {
+					// if there is a match, add the points layer to the map
+          //layer.addTo(map);
+					publications.addLayer(pubPts);
+				} else {
+					//map.removeLayer(layer);
+					publications.removeLayer(pubPts);
+				};
+      });
+
+			restPts.eachLayer(function(layer) {
+        // define the point year
+        let year = layer.feature.properties.Date;
+				// use conditional logic to test if the layer properties match the time slider year
+        if (year == currentYear) {
+					// if there is a match, add the points layer to the map
+          //layer.addTo(map);
+					restaurants.addLayer(restPts);
+				} else {
+					//map.removeLayer(layer);
+					restaurants.removeLayer(restPts);
+				};
+      });
+
+			servicePts.eachLayer(function(layer) {
+        // define the point year
+        let year = layer.feature.properties.Date;
+				// use conditional logic to test if the layer properties match the time slider year
+        if (year == currentYear) {
+					// if there is a match, add the points layer to the map
+          //layer.addTo(map);
+					stations.addLayer(servicePts);
+				} else {
+					//map.removeLayer(layer);
+					stations.removeLayer(servicePts);
+				};
+      });
+
+			tailorPts.eachLayer(function(layer) {
+        // define the point year
+        let year = layer.feature.properties.Date;
+				// use conditional logic to test if the layer properties match the time slider year
+        if (year == currentYear) {
+					// if there is a match, add the points layer to the map
+          //layer.addTo(map);
+					tailors.addLayer(tailorPts);
+				} else {
+					//map.removeLayer(layer);
+					tailors.removeLayer(tailorPts);
+				};
+      });
+
+			tavernPts.eachLayer(function(layer) {
+        // define the point year
+        let year = layer.feature.properties.Date;
+				// use conditional logic to test if the layer properties match the time slider year
+        if (year == currentYear) {
+					// if there is a match, add the points layer to the map
+          //layer.addTo(map);
+					taverns.addLayer(tavernPts);
+				} else {
+					//map.removeLayer(layer);
+					taverns.removeLayer(tavernPts);
+				};
+      });
+
+			touristPts.eachLayer(function(layer) {
+        // define the point year
+        let year = layer.feature.properties.Date;
+				// use conditional logic to test if the layer properties match the time slider year
+        if (year == currentYear) {
+					// if there is a match, add the points layer to the map
+          //layer.addTo(map);
+					homes.addLayer(touristPts);
+				} else {
+					//map.removeLayer(layer);
+					homes.removeLayer(touristPts);
+				};
+      });
+
     }; // End updateFires function
 	</script>
 

@@ -65,11 +65,14 @@ header {
 
 .cd-dropdown-wrapper {
   display: inline-block;
-  position: relative;
+  position: fixed;
   height: 40px;
-  margin: 30px 0 0 90%;
+  left: 45px;
+  top: 10px;
+  /*margin: 30px 0 0 90%;*/
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  z-index: 800;
 }
 
 .cd-dropdown-trigger {
