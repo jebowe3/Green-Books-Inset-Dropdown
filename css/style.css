@@ -96,7 +96,7 @@ header {
   margin-top: -1px;
   height: 2px;
   width: 9px;
-  background: #ffffff;
+  background: black;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
   -webkit-transition: width 0.3s, -webkit-transform 0.3s;
