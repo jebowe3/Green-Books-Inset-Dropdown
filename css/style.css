@@ -91,6 +91,7 @@ header {
   /* this is the arrow inside the dropdown trigger*/
   content: '';
   position: absolute;
+  margin-right: -10px;
   top: 50%;
   margin-top: -1px;
   height: 2px;
@@ -407,7 +408,7 @@ header {
     padding-top: 60px;
   }
   .cd-dropdown-content a, .cd-dropdown-content ul a {
-    font-size: 1.8rem;
+    /*font-size: 1.8rem;*/
   }
 }
 @media only screen and (min-width: 1024px) {

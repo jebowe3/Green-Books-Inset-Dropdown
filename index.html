@@ -90,7 +90,7 @@
 			cursor: pointer;
 		}
 
-		@media only screen and (max-width: 380px) {
+		@media only screen and (max-width: 1000px) {
 
 			/* Set time slider styles */
 			#slider {
@@ -99,7 +99,7 @@
 				height: 25px;
 				bottom: 20px;
 				left: 106px;
-				z-index: 800;
+				z-index: 500;
 				background-color: #FFFFFF;
 				border-radius: 3px;
 				box-shadow: 0px 0px 0px 2px rgba(0, 0, 0, 0.3);
@@ -113,18 +113,20 @@
 				display: inline-block;
 				position: fixed;
 				height: 40px;
-				left: 46px;
+				left: 54px;
 				top: 10px;
-				width: 100px;
+				width: 107px;
 				/*margin: 30px 0 0 90%;*/
 				-webkit-font-smoothing: antialiased;
 				-moz-osx-font-smoothing: grayscale;
 			}
 
 			.cd-dropdown-trigger {
-				font-size: 12px;
-				line-height: 17px;
-				padding-left: 10px;
+				font-size: 14px;
+				line-height: 16px;
+				padding-left: 5px;
+				padding-top: 7px;
+				padding-bottom: 5px;
 			}
 
 			.cd-dropdown h2,
@@ -132,11 +134,15 @@
 			.cd-dropdown-content ul a {
 			  height: 25px;
 			  line-height: 20px;
+				padding-top: 5px;
+				padding-bottom: 5px;
+				margin-bottom: 5px;
 			}
 
 			.cd-dropdown {
-				width: 146px;
-				height: 377px;
+				width: 140px;
+				height: 100%;
+				left: 46px;
 			}
 
 		}
@@ -166,6 +172,7 @@
 					<li><a onclick="zoom2latLng11();">Sioux City</a></li>
 					<li><a onclick="zoom2latLng12();">Waterloo</a></li>
 					<li><a onclick="zoom2latLng13();">Main Map</a></li>
+					<li></li>
 				</ul> <!-- .cd-dropdown-content -->
 			</nav> <!-- .cd-dropdown -->
 		</div> <!-- .cd-dropdown-wrapper -->
@@ -336,7 +343,7 @@
 		};
 
 		// all done with the layers, add them to layer control
-		if (document.body.clientWidth <= 380) {
+		if (document.body.clientWidth <= 450) {
 			var isCollapsed = true;
 		} else {
 			var isCollapsed = false;
