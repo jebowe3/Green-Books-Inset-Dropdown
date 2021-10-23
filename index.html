@@ -207,8 +207,6 @@
 			<h5 class='txt-bold'><span id='span'></span></h5>
 		</div>
 	<!--</main>-->
-	<!-- for mapbox historic road map tiles -->
-	<script src='https://api.mapbox.com/mapbox.js/v3.2.1/mapbox.js'></script>
 	<!-- leaflet js -->
 	<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
 	<!-- for the markers -->
@@ -219,13 +217,13 @@
 
 	<script>
 		// add mapbox historic road map tiles
-		L.mapbox.accessToken = 'pk.eyJ1IjoiamVib3dlMyIsImEiOiJja3YxMXN1dXk3cm1xMzJxNjQ1bDNnc2t4In0.hLhht9e9GzCLV9uOIl0q9A'; // enter Mapbox access token
+		var accessToken = 'pk.eyJ1IjoiamVib3dlMyIsImEiOiJja3YxMXN1dXk3cm1xMzJxNjQ1bDNnc2t4In0.hLhht9e9GzCLV9uOIl0q9A'; // enter Mapbox access token
 
-		var basemap = L.mapbox.styleLayer('mapbox://styles/jebowe3/ck6vfzgdu0its1imqxec1qskn');
+		var basemap = L.tileLayer('https://api.mapbox.com/styles/v1/jebowe3/ck6vfzgdu0its1imqxec1qskn/tiles/256/{z}/{x}/{y}@2x?access_token=' + accessToken);
 		
-		var overmap1 = L.mapbox.styleLayer('mapbox://styles/jebowe3/ck788bszk0wt91imjbb16iy8l');
-    		var overmap2 = L.mapbox.styleLayer('mapbox://styles/jebowe3/ck6vbdt990eiy1intt77mioei');
-    		var overmap3 = L.mapbox.styleLayer('mapbox://styles/jebowe3/ck78dcwh52gq11io2ggxhtqtk');
+		var overmap1 = L.tileLayer('https://api.mapbox.com/styles/v1/jebowe3/ck788bszk0wt91imjbb16iy8l/tiles/256/{z}/{x}/{y}@2x?access_token=' + accessToken);
+    		var overmap2 = L.tileLayer('https://api.mapbox.com/styles/v1/jebowe3/ck6vbdt990eiy1intt77mioei/tiles/256/{z}/{x}/{y}@2x?access_token=' + accessToken);
+    		var overmap3 = L.tileLayer('https://api.mapbox.com/styles/v1/jebowe3/ck78dcwh52gq11io2ggxhtqtk/tiles/256/{z}/{x}/{y}@2x?access_token=' + accessToken);
 		
 		var map = L.map('map', {
 			layers: [basemap, overmap1, overmap2, overmap3]
