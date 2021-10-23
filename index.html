@@ -211,13 +211,33 @@
 	<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
 	<!-- for the markers -->
 	<script src="js/leaflet.extra-markers.min.js"></script>
+	<!-- for mapbox historic road map tiles -->
+	<script src='https://api.mapbox.com/mapbox.js/v3.2.1/mapbox.js'></script>
 	<script src="js/jquery-2.1.1.js"></script>
 	<script src="js/jquery.menu-aim.js"></script> <!-- menu aim -->
 	<script src="js/main.js"></script><!-- Resource jQuery -->
 
 	<script>
-		var map = L.map('map').setView([42.0667, -93.4], 8);
+		// add mapbox historic road map tiles
+		L.mapbox.accessToken = 'pk.eyJ1IjoiamVib3dlMyIsImEiOiJja3YxMXN1dXk3cm1xMzJxNjQ1bDNnc2t4In0.hLhht9e9GzCLV9uOIl0q9A'; // enter Mapbox access token
 
+		var basemap = L.mapbox.styleLayer('mapbox://styles/jebowe3/ck6vfzgdu0its1imqxec1qskn');
+		
+		var overmap1 = L.mapbox.styleLayer('mapbox://styles/jebowe3/ck788bszk0wt91imjbb16iy8l');
+    		var overmap2 = L.mapbox.styleLayer('mapbox://styles/jebowe3/ck6vbdt990eiy1intt77mioei');
+    		var overmap3 = L.mapbox.styleLayer('mapbox://styles/jebowe3/ck78dcwh52gq11io2ggxhtqtk');
+		
+		var map = L.map('map', {
+			layers: [basemap, overmap1, overmap2, overmap3]
+		}).setView([42.0667, -93.4], 8);
+		
+		var baseMaps = {
+		      "Contemporary": basemap,
+		      "1960 Road Map": overmap3,
+		      "1950 Road Map": overmap2,
+		      "1940 Road Map": overmap1
+		};
+/*
 		// use the Jawg Sunny base map - nice, clean, not fussy
 		L.tileLayer('https://{s}.tile.jawg.io/jawg-sunny/{z}/{x}/{y}{r}.png?access-token=odaScIS8yTVoAy0mjYBoHMXXasRTvbpjrTyjwQiZutN3FU3WE82xJ6FyqbbglesB', {
 			attribution: '<a href="http://jawg.io" title="Tiles Courtesy of Jawg Maps" target="_blank">&copy; <b>Jawg</b>Maps</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
@@ -226,7 +246,7 @@
 			subdomains: 'abcd',
 			accessToken: 'odaScIS8yTVoAy0mjYBoHMXXasRTvbpjrTyjwQiZutN3FU3WE82xJ6FyqbbglesB'
 		}).addTo(map); // add the base map to the map;
-
+*/
 		// zoom to functions for inset dropdown
 		function zoom2latLng1() {
 			map.flyTo([41.983056, -91.668611], 13); // zoom to Cedar Rapids
@@ -368,7 +388,7 @@
 			var isCollapsed = false;
 		}
 
-		const controlLayers = L.control.layers(null, overlays, {
+		const controlLayers = L.control.layers(baseMaps, overlays, {
 			collapsed: isCollapsed
 		}).addTo(map);
 
