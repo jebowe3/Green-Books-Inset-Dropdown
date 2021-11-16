@@ -1,7 +1,6 @@
 {
 "type": "FeatureCollection",
 "name": "GreenBookPoints",
-"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
 "features": [
 { "type": "Feature", "properties": { "Date": 1947, "Owner": "Andy's", "Type": "Automotives", "Address": "E. University and Hubble, Des Moines, Iowa", "Coordinates": "41.600489,-93.578649", "Y": 41.600489, "X": -93.578649 }, "geometry": { "type": "Point", "coordinates": [ -93.57865, 41.60049 ] } },
 { "type": "Feature", "properties": { "Date": 1948, "Owner": "Andy's", "Type": "Automotives", "Address": "E. University and Hubble, Des Moines, Iowa", "Coordinates": "41.600489,-93.578649", "Y": 41.600489, "X": -93.578649 }, "geometry": { "type": "Point", "coordinates": [ -93.57865, 41.60049 ] } },
