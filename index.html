@@ -106,6 +106,11 @@
 			padding-left: 7px;
 		}
 
+		.resize {
+      width: 300px;
+      height: auto;
+    }
+
 		@media only screen and (max-width: 1000px) {
 
 			/* Set time slider styles */
@@ -219,32 +224,34 @@
 		// add mapbox historic road map tiles
 		var accessToken = 'pk.eyJ1IjoiamVib3dlMyIsImEiOiJja3YxMXN1dXk3cm1xMzJxNjQ1bDNnc2t4In0.hLhht9e9GzCLV9uOIl0q9A'; // enter Mapbox access token
 
+/*
+		// use the Jawg Sunny base map - nice, clean, not fussy
+		var basemap = L.tileLayer('https://{s}.tile.jawg.io/jawg-sunny/{z}/{x}/{y}{r}.png?access-token=odaScIS8yTVoAy0mjYBoHMXXasRTvbpjrTyjwQiZutN3FU3WE82xJ6FyqbbglesB', {
+			attribution: '<a href="http://jawg.io" title="Tiles Courtesy of Jawg Maps" target="_blank">&copy; <b>Jawg</b>Maps</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+			minZoom: 0,
+			maxZoom: 22,
+			subdomains: 'abcd',
+			accessToken: 'odaScIS8yTVoAy0mjYBoHMXXasRTvbpjrTyjwQiZutN3FU3WE82xJ6FyqbbglesB'
+		}); // add the base map to the map;
+*/
+
 		var basemap = L.tileLayer('https://api.mapbox.com/styles/v1/jebowe3/ck6vfzgdu0its1imqxec1qskn/tiles/256/{z}/{x}/{y}@2x?access_token=' + accessToken);
-		
+
 		var overmap1 = L.tileLayer('https://api.mapbox.com/styles/v1/jebowe3/ck788bszk0wt91imjbb16iy8l/tiles/256/{z}/{x}/{y}@2x?access_token=' + accessToken);
     		var overmap2 = L.tileLayer('https://api.mapbox.com/styles/v1/jebowe3/ck6vbdt990eiy1intt77mioei/tiles/256/{z}/{x}/{y}@2x?access_token=' + accessToken);
     		var overmap3 = L.tileLayer('https://api.mapbox.com/styles/v1/jebowe3/ck78dcwh52gq11io2ggxhtqtk/tiles/256/{z}/{x}/{y}@2x?access_token=' + accessToken);
-		
+
 		var map = L.map('map', {
 			layers: [basemap, overmap1, overmap2, overmap3]
 		}).setView([42.0667, -93.4], 8);
-		
+
 		var baseMaps = {
 		      "Contemporary": basemap,
 		      "1960 Road Map": overmap3,
 		      "1950 Road Map": overmap2,
 		      "1940 Road Map": overmap1
 		};
-/*
-		// use the Jawg Sunny base map - nice, clean, not fussy
-		L.tileLayer('https://{s}.tile.jawg.io/jawg-sunny/{z}/{x}/{y}{r}.png?access-token=odaScIS8yTVoAy0mjYBoHMXXasRTvbpjrTyjwQiZutN3FU3WE82xJ6FyqbbglesB', {
-			attribution: '<a href="http://jawg.io" title="Tiles Courtesy of Jawg Maps" target="_blank">&copy; <b>Jawg</b>Maps</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-			minZoom: 0,
-			maxZoom: 22,
-			subdomains: 'abcd',
-			accessToken: 'odaScIS8yTVoAy0mjYBoHMXXasRTvbpjrTyjwQiZutN3FU3WE82xJ6FyqbbglesB'
-		}).addTo(map); // add the base map to the map;
-*/
+
 		// zoom to functions for inset dropdown
 		function zoom2latLng1() {
 			map.flyTo([41.983056, -91.668611], 13); // zoom to Cedar Rapids
@@ -412,10 +419,17 @@
 			let type = props.Type;
 			// define the year attribute
 			let year = props.Date;
+			// define popup image
+			if (props.Image != undefined) {
+				var pimage = "<br><img class='resize' src='" + props.Image + "'" + "/>" + '<br>Click <a href="' + props.Source + '" target="_blank">here</a> to visit the image source.<br>';
+			} else {
+				var pimage = '';
+			}
 			// bind a popup to the markers
 			layer.bindPopup("<b>" + props.Date + " Green Book" + "<br>" + props.Owner + "</b>" +
 				"<br>Amenity: " + props.Type +
-				"<br>Address: " + props.Address // add website
+				"<br>Address: " + props.Address + // add website
+				pimage
 			);
 			/*
 			layer.on('mouseover', function(e) {
