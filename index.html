@@ -32,7 +32,7 @@
 
 		/* Set and style fonts for text in map */
 		h1 {
-			font-family: 'Muli', sans-serif;
+			font-family: 'Lato', sans-serif;
 			font-size: 30px;
 			display: inline-block;
 			color: #ffff00;
@@ -80,7 +80,7 @@
 
 		/* Set the styles for the text span in the temporal legend */
 		#temporal span {
-			font-family: 'Muli', sans-serif;
+			font-family: 'Lato', sans-serif;
 			position: absolute;
 			font-size: 13px;
 			/*font-weight: bold;*/
@@ -97,7 +97,7 @@
 
 		/* Dropdown Button */
 		.dropbtn {
-			font-family: 'Muli', sans-serif;
+			font-family: 'Lato', sans-serif;
 			box-shadow: 0px 0px 0px 2px rgba(0, 0, 0, 0.2);
       border-radius: 3px;
 			background-color: #3498DB;
@@ -141,7 +141,7 @@
 
 		/* Links inside the dropdown */
 		.dropdown-content a {
-			font-family: 'Muli', sans-serif;
+			font-family: 'Lato', sans-serif;
 			font-size: 12px;
 			color: black;
 			padding: 8px 8px 8px 8px;
@@ -161,27 +161,6 @@
 			display: block;
 		}
 
-		/*
-		li {
-			cursor: pointer;
-		}
-
-		.cd-dropdown-wrapper {
-			top: 12px;
-		}
-
-		.cd-dropdown-trigger {
-			color: black;
-			background-color: #FFFFFF;
-			box-shadow: 0px 0px 0px 2px rgba(0, 0, 0, 0.3);
-			line-height: 28px;
-			height: 28px;
-*/
-		/*padding-top: 2px;*/
-		/*			padding-left: 7px;
-		}
-
-*/
 		@media only screen and (max-width: 1000px) {
 
 			/* Set time slider styles */
@@ -201,47 +180,77 @@
 				width: 93px;
 			}
 
-			/*
-			.cd-dropdown-wrapper {
-				display: inline-block;
-				position: fixed;
-				height: 40px;
+			/* Dropdown Button */
+			.dropbtn {
+				font-family: 'Lato', sans-serif;
+				box-shadow: 0px 0px 0px 2px rgba(0, 0, 0, 0.2);
+	      border-radius: 3px;
+				background-color: #3498DB;
+				color: white;
+				padding: 7px;
+				font-size: 11px;
+				white-space: nowrap;
+				max-width: content;
+				border: none;
+				cursor: pointer;
+				position: relative;
 				left: 54px;
 				top: 12px;
-				width: 107px;
-*/
-			/*margin: 30px 0 0 90%;*/
-			/*				-webkit-font-smoothing: antialiased;
-				-moz-osx-font-smoothing: grayscale;
 			}
 
-			.cd-dropdown-trigger {
-				font-size: 14px;
+			/* Dropdown button on hover & focus */
+			.dropbtn:hover,
+			.dropbtn:focus {
+				background-color: #2980B9;
+			}
+
+			/* The container <div> - needed to position the dropdown content */
+			.dropdown {
+				position: relative;
+				display: inline-block;
+			}
+
+			/* Dropdown Content (Hidden by Default) */
+			.dropdown-content {
+				display: none;
+				position: absolute;
+				top: 40px;
+				left: 54px;
+				background-color: #f1f1f1;
+				white-space: nowrap;
+				min-width: content;
+				box-shadow: 0px 0px 0px 2px rgba(0, 0, 0, 0.2);
+				border-radius: 3px;
+				z-index: 1000;
+			}
+
+			/* Links inside the dropdown */
+			.dropdown-content a {
+				font-family: 'Lato', sans-serif;
+				font-size: 9px;
 				color: black;
-				line-height: 16px;
-				padding-left: 5px;
-				padding-top: 7px;
-				padding-bottom: 5px;
-				background-color: #FFFFFF;
-				box-shadow: 0px 0px 0px 2px rgba(0, 0, 0, 0.3);
+				padding: 5px 5px 5px 5px;
+				text-decoration: none;
+				display: block;
+				box-shadow: 0px 0px 0px 0.5px rgba(0, 0, 0, 0.1);
+				cursor: pointer;
 			}
 
-			.cd-dropdown h2,
-			.cd-dropdown-content a,
-			.cd-dropdown-content ul a {
-			  height: 25px;
-			  line-height: 20px;
-				padding-top: 5px;
-				padding-bottom: 5px;
-				margin-bottom: 5px;
+			/* Change color of dropdown links on hover */
+			.dropdown-content a:hover {
+				background-color: #ddd
 			}
 
-			.cd-dropdown {
-				width: 140px;
-				height: 100%;
-				left: 46px;
+			/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+			.show {
+				display: block;
 			}
-*/
+
+			 .leaflet-control-layers-expanded {
+				 font-family: 'Lato', sans-serif;
+				 font-size: 10px;
+			 }
+
 		}
 	</style>
 
@@ -249,34 +258,6 @@
 </head>
 
 <body>
-
-	<!--<main class="cd-main-content">-->
-	<!--<div class="cd-dropdown-wrapper">
-			<a class="cd-dropdown-trigger" href="#0">City Insets</a>
-			<nav class="cd-dropdown">-->
-	<!--<h2>Title</h2>-->
-	<!--<a href="#0" class="cd-close">Close</a>
-				<ul class="cd-dropdown-content">
-					<li><a onclick="zoom2latLng1();">Cedar Rapids</a></li>
-					<li><a onclick="zoom2latLng2();">Clinton</a></li>
-					<li><a onclick="zoom2latLng3();">Council Bluffs</a></li>
-					<li><a onclick="zoom2latLng4();">Davenport</a></li>
-					<li><a onclick="zoom2latLng5();">Des Moines</a></li>
-					<li><a onclick="zoom2latLng6();">Dubuque</a></li>
-					<li><a onclick="zoom2latLng7();">Iowa City</a></li>
-					<li><a onclick="zoom2latLng8();">Keokuk</a></li>
-					<li><a onclick="zoom2latLng9();">Newton</a></li>
-					<li><a onclick="zoom2latLng10();">Ottumwa</a></li>
-					<li><a onclick="zoom2latLng11();">Sioux City</a></li>
-					<li><a onclick="zoom2latLng12();">Waterloo</a></li>
-					<li><a onclick="zoom2latLng13();">Main Map</a></li>
-					<li></li>-->
-	<!--</ul>-->
-	<!-- .cd-dropdown-content -->
-	<!--</nav>-->
-	<!-- .cd-dropdown -->
-	<!--</div>-->
-	<!-- .cd-dropdown-wrapper -->
 	<!-- map -->
 	<div id="map"></div>
 	<!-- dropdown menu -->
@@ -504,7 +485,7 @@
 		};
 
 		// all done with the layers, add them to layer control
-		if (document.body.clientWidth <= 450) {
+		if (document.body.clientWidth <= 1000) {
 			var isCollapsed = true;
 		} else {
 			var isCollapsed = false;
