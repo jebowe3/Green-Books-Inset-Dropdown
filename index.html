@@ -4,9 +4,6 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-
-	<link rel="stylesheet" href="css/reset.css"> <!-- CSS reset -->
-	<link rel="stylesheet" href="css/style.css"> <!-- Resource style -->
 	<!-- leaflet css -->
 	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
 	<!-- fonts -->
@@ -16,9 +13,13 @@
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.10.2/css/all.css">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.10.2/css/v4-shims.css">
 	<link rel="stylesheet" href="css/leaflet.extra-markers.min.css">
-	<script src="js/modernizr.js"></script> <!-- Modernizr -->
 
 	<style type="text/css">
+
+		body, html {
+			margin:0;
+			padding:0;
+		}
 
 		/* Set map parameters */
 		#map {
@@ -79,15 +80,88 @@
 
 		/* Set the styles for the text span in the temporal legend */
 		#temporal span {
-			font-family: 'Montserrat', sans-serif;
+			font-family: 'Muli', sans-serif;
 			position: absolute;
 			font-size: 13px;
+			/*font-weight: bold;*/
 			display: inline-block;
 			line-height: 25px;
 			height: 25px;
 			left: 10px;
 		}
 
+		.resize {
+			width: 300px;
+			height: auto;
+		}
+
+		/* Dropdown Button */
+		.dropbtn {
+			font-family: 'Muli', sans-serif;
+			box-shadow: 0px 0px 0px 2px rgba(0, 0, 0, 0.2);
+      border-radius: 3px;
+			background-color: #3498DB;
+			color: white;
+			padding: 10px;
+			font-size: 14px;
+			white-space: nowrap;
+			max-width: content;
+			border: none;
+			cursor: pointer;
+			position: relative;
+			left: 54px;
+			top: 12px;
+		}
+
+		/* Dropdown button on hover & focus */
+		.dropbtn:hover,
+		.dropbtn:focus {
+			background-color: #2980B9;
+		}
+
+		/* The container <div> - needed to position the dropdown content */
+		.dropdown {
+			position: relative;
+			display: inline-block;
+		}
+
+		/* Dropdown Content (Hidden by Default) */
+		.dropdown-content {
+			display: none;
+			position: absolute;
+			top: 50px;
+			left: 54px;
+			background-color: #f1f1f1;
+			white-space: nowrap;
+			min-width: content;
+			box-shadow: 0px 0px 0px 2px rgba(0, 0, 0, 0.2);
+			border-radius: 3px;
+			z-index: 1000;
+		}
+
+		/* Links inside the dropdown */
+		.dropdown-content a {
+			font-family: 'Muli', sans-serif;
+			font-size: 12px;
+			color: black;
+			padding: 8px 8px 8px 8px;
+			text-decoration: none;
+			display: block;
+			box-shadow: 0px 0px 0px 0.5px rgba(0, 0, 0, 0.1);
+			cursor: pointer;
+		}
+
+		/* Change color of dropdown links on hover */
+		.dropdown-content a:hover {
+			background-color: #ddd
+		}
+
+		/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+		.show {
+			display: block;
+		}
+
+		/*
 		li {
 			cursor: pointer;
 		}
@@ -102,15 +176,12 @@
 			box-shadow: 0px 0px 0px 2px rgba(0, 0, 0, 0.3);
 			line-height: 28px;
 			height: 28px;
-			/*padding-top: 2px;*/
-			padding-left: 7px;
+*/
+		/*padding-top: 2px;*/
+		/*			padding-left: 7px;
 		}
 
-		.resize {
-      width: 300px;
-      height: auto;
-    }
-
+*/
 		@media only screen and (max-width: 1000px) {
 
 			/* Set time slider styles */
@@ -130,6 +201,7 @@
 				width: 93px;
 			}
 
+			/*
 			.cd-dropdown-wrapper {
 				display: inline-block;
 				position: fixed;
@@ -137,8 +209,9 @@
 				left: 54px;
 				top: 12px;
 				width: 107px;
-				/*margin: 30px 0 0 90%;*/
-				-webkit-font-smoothing: antialiased;
+*/
+			/*margin: 30px 0 0 90%;*/
+			/*				-webkit-font-smoothing: antialiased;
 				-moz-osx-font-smoothing: grayscale;
 			}
 
@@ -168,7 +241,7 @@
 				height: 100%;
 				left: 46px;
 			}
-
+*/
 		}
 	</style>
 
@@ -176,12 +249,13 @@
 </head>
 
 <body>
+
 	<!--<main class="cd-main-content">-->
-		<div class="cd-dropdown-wrapper">
+	<!--<div class="cd-dropdown-wrapper">
 			<a class="cd-dropdown-trigger" href="#0">City Insets</a>
-			<nav class="cd-dropdown">
-				<!--<h2>Title</h2>-->
-				<a href="#0" class="cd-close">Close</a>
+			<nav class="cd-dropdown">-->
+	<!--<h2>Title</h2>-->
+	<!--<a href="#0" class="cd-close">Close</a>
 				<ul class="cd-dropdown-content">
 					<li><a onclick="zoom2latLng1();">Cedar Rapids</a></li>
 					<li><a onclick="zoom2latLng2();">Clinton</a></li>
@@ -196,61 +270,104 @@
 					<li><a onclick="zoom2latLng11();">Sioux City</a></li>
 					<li><a onclick="zoom2latLng12();">Waterloo</a></li>
 					<li><a onclick="zoom2latLng13();">Main Map</a></li>
-					<li></li>
-				</ul> <!-- .cd-dropdown-content -->
-			</nav> <!-- .cd-dropdown -->
-		</div> <!-- .cd-dropdown-wrapper -->
-		<!-- map -->
-		<div id="map"></div>
-		<!-- ui slider -->
-		<div id="slider" class="leaflet-control">
-			<!-- Use the first and last year of the time data as the min and max. Set the initial value as the first year. Set the steps at one year. -->
-			<input type="range" min="1939" max="1966" value="1939" step="1" class="slider" />
+					<li></li>-->
+	<!--</ul>-->
+	<!-- .cd-dropdown-content -->
+	<!--</nav>-->
+	<!-- .cd-dropdown -->
+	<!--</div>-->
+	<!-- .cd-dropdown-wrapper -->
+	<!-- map -->
+	<div id="map"></div>
+	<!-- dropdown menu -->
+	<div class="dropdown">
+		<button onclick="myFunction()" class="dropbtn">City Insets</button>
+		<div id="myDropdown" class="dropdown-content">
+			<a onclick="zoom2latLng1();">Cedar Rapids</a>
+			<a onclick="zoom2latLng2();">Clinton</a>
+			<a onclick="zoom2latLng3();">Council Bluffs</a>
+			<a onclick="zoom2latLng4();">Davenport</a>
+			<a onclick="zoom2latLng5();">Des Moines</a>
+			<a onclick="zoom2latLng6();">Dubuque</a>
+			<a onclick="zoom2latLng7();">Iowa City</a>
+			<a onclick="zoom2latLng8();">Keokuk</a>
+			<a onclick="zoom2latLng9();">Newton</a>
+			<a onclick="zoom2latLng10();">Ottumwa</a>
+			<a onclick="zoom2latLng11();">Sioux City</a>
+			<a onclick="zoom2latLng12();">Waterloo</a>
+			<a onclick="zoom2latLng13();">Main Map</a>
 		</div>
-		<!-- temporal legend -->
-		<div id='temporal'>
-			<h5 class='txt-bold'><span id='span'></span></h5>
-		</div>
+	</div>
+	<!-- ui slider -->
+	<div id="slider" class="leaflet-control">
+		<!-- Use the first and last year of the time data as the min and max. Set the initial value as the first year. Set the steps at one year. -->
+		<input type="range" min="1939" max="1966" value="1939" step="1" class="slider" />
+	</div>
+	<!-- temporal legend -->
+	<div id='temporal'>
+		<!--<h5 class='txt-bold'><span id='span'></span></h5>-->
+		<span class='txt-bold' id='span'></span>
+	</div>
 	<!--</main>-->
 	<!-- leaflet js -->
 	<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
 	<!-- for the markers -->
 	<script src="js/leaflet.extra-markers.min.js"></script>
 	<script src="js/jquery-2.1.1.js"></script>
-	<script src="js/jquery.menu-aim.js"></script> <!-- menu aim -->
-	<script src="js/main.js"></script><!-- Resource jQuery -->
 
 	<script>
 		// add mapbox historic road map tiles
 		var accessToken = 'pk.eyJ1IjoiamVib3dlMyIsImEiOiJja3YxMXN1dXk3cm1xMzJxNjQ1bDNnc2t4In0.hLhht9e9GzCLV9uOIl0q9A'; // enter Mapbox access token
 
-/*
-		// use the Jawg Sunny base map - nice, clean, not fussy
-		var basemap = L.tileLayer('https://{s}.tile.jawg.io/jawg-sunny/{z}/{x}/{y}{r}.png?access-token=odaScIS8yTVoAy0mjYBoHMXXasRTvbpjrTyjwQiZutN3FU3WE82xJ6FyqbbglesB', {
-			attribution: '<a href="http://jawg.io" title="Tiles Courtesy of Jawg Maps" target="_blank">&copy; <b>Jawg</b>Maps</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-			minZoom: 0,
-			maxZoom: 22,
-			subdomains: 'abcd',
-			accessToken: 'odaScIS8yTVoAy0mjYBoHMXXasRTvbpjrTyjwQiZutN3FU3WE82xJ6FyqbbglesB'
-		}); // add the base map to the map;
-*/
+		/*
+				// use the Jawg Sunny base map - nice, clean, not fussy
+				var basemap = L.tileLayer('https://{s}.tile.jawg.io/jawg-sunny/{z}/{x}/{y}{r}.png?access-token=odaScIS8yTVoAy0mjYBoHMXXasRTvbpjrTyjwQiZutN3FU3WE82xJ6FyqbbglesB', {
+					attribution: '<a href="http://jawg.io" title="Tiles Courtesy of Jawg Maps" target="_blank">&copy; <b>Jawg</b>Maps</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+					minZoom: 0,
+					maxZoom: 22,
+					subdomains: 'abcd',
+					accessToken: 'odaScIS8yTVoAy0mjYBoHMXXasRTvbpjrTyjwQiZutN3FU3WE82xJ6FyqbbglesB'
+				}); // add the base map to the map;
+		*/
 
 		var basemap = L.tileLayer('https://api.mapbox.com/styles/v1/jebowe3/ck6vfzgdu0its1imqxec1qskn/tiles/256/{z}/{x}/{y}@2x?access_token=' + accessToken);
 
 		var overmap1 = L.tileLayer('https://api.mapbox.com/styles/v1/jebowe3/ck788bszk0wt91imjbb16iy8l/tiles/256/{z}/{x}/{y}@2x?access_token=' + accessToken);
-    		var overmap2 = L.tileLayer('https://api.mapbox.com/styles/v1/jebowe3/ck6vbdt990eiy1intt77mioei/tiles/256/{z}/{x}/{y}@2x?access_token=' + accessToken);
-    		var overmap3 = L.tileLayer('https://api.mapbox.com/styles/v1/jebowe3/ck78dcwh52gq11io2ggxhtqtk/tiles/256/{z}/{x}/{y}@2x?access_token=' + accessToken);
+		var overmap2 = L.tileLayer('https://api.mapbox.com/styles/v1/jebowe3/ck6vbdt990eiy1intt77mioei/tiles/256/{z}/{x}/{y}@2x?access_token=' + accessToken);
+		var overmap3 = L.tileLayer('https://api.mapbox.com/styles/v1/jebowe3/ck78dcwh52gq11io2ggxhtqtk/tiles/256/{z}/{x}/{y}@2x?access_token=' + accessToken);
 
 		var map = L.map('map', {
 			layers: [basemap, overmap1, overmap2, overmap3]
 		}).setView([42.0667, -93.4], 8);
 
 		var baseMaps = {
-		      "Contemporary": basemap,
-		      "1960 Road Map": overmap3,
-		      "1950 Road Map": overmap2,
-		      "1940 Road Map": overmap1
+			"Contemporary": basemap,
+			"1960 Road Map": overmap3,
+			"1950 Road Map": overmap2,
+			"1940 Road Map": overmap1
 		};
+
+		/* START DROPDOWN CODE */
+		/* When the user clicks on the button,
+		toggle between hiding and showing the dropdown content */
+		function myFunction() {
+		  document.getElementById("myDropdown").classList.toggle("show");
+		};
+
+		// Close the dropdown menu if the user clicks outside of it
+		window.onclick = function(event) {
+		  if (!event.target.matches('.dropbtn')) {
+		    var dropdowns = document.getElementsByClassName("dropdown-content");
+		    var i;
+		    for (i = 0; i < dropdowns.length; i++) {
+		      var openDropdown = dropdowns[i];
+		      if (openDropdown.classList.contains('show')) {
+		        openDropdown.classList.remove('show');
+		      }
+		    }
+		  }
+		};
+		/* END DROPDOWN CODE */
 
 		// zoom to functions for inset dropdown
 		function zoom2latLng1() {
@@ -502,20 +619,22 @@
 			});
 
 			// call functions defined below
-			sequenceUI(gbPts/*autoPts, barberPts, beautyPts, cafePts, drugPts, factoryPts, garagePts, hotelPts, motelPts, pubPts, restPts, servicePts, tailorPts, tavernPts, touristPts*/); // calls the time slider and sends the layer to it
+			sequenceUI(gbPts /*autoPts, barberPts, beautyPts, cafePts, drugPts, factoryPts, garagePts, hotelPts, motelPts, pubPts, restPts, servicePts, tailorPts, tavernPts, touristPts*/ ); // calls the time slider and sends the layer to it
 			createTemporalLegend(currentYear); // calls the createTemporalLegend function
-			updatePoints(gbPts, /*autoPts, barberPts, beautyPts, cafePts, drugPts, factoryPts, garagePts, hotelPts, motelPts, pubPts, restPts, servicePts, tailorPts, tavernPts, touristPts, */currentYear); // calls the updatePoints function to update the points
+			updatePoints(gbPts, /*autoPts, barberPts, beautyPts, cafePts, drugPts, factoryPts, garagePts, hotelPts, motelPts, pubPts, restPts, servicePts, tailorPts, tavernPts, touristPts, */
+			currentYear); // calls the updatePoints function to update the points
 		});
 
 		// call the UI slider with a function called "sequenceUI"
-		function sequenceUI(gbPts/*autoPts, barberPts, beautyPts, cafePts, drugPts, factoryPts, garagePts, hotelPts, motelPts, pubPts, restPts, servicePts, tailorPts, tavernPts, touristPts*/) { // feed it the points data
+		function sequenceUI(gbPts /*autoPts, barberPts, beautyPts, cafePts, drugPts, factoryPts, garagePts, hotelPts, motelPts, pubPts, restPts, servicePts, tailorPts, tavernPts, touristPts*/ ) { // feed it the points data
 
 			// use the jQuery ajax method to get the slider element
 			$('.slider')
 				.on('input change', function() { // when the input changes...
 					let currentYear = $(this).val(); // identify the year selected with "currentYear"
 					createTemporalLegend(currentYear); // call the createTemporalLegend function
-					updatePoints(gbPts, /*autoPts, barberPts, beautyPts, cafePts, drugPts, factoryPts, garagePts, hotelPts, motelPts, pubPts, restPts, servicePts, tailorPts, tavernPts, touristPts, */currentYear); // calls the updatePoints function to update the points data
+					updatePoints(gbPts, /*autoPts, barberPts, beautyPts, cafePts, drugPts, factoryPts, garagePts, hotelPts, motelPts, pubPts, restPts, servicePts, tailorPts, tavernPts, touristPts, */
+					currentYear); // calls the updatePoints function to update the points data
 				});
 
 		}; // End sequenceUI function
@@ -549,7 +668,7 @@
 		}; // End createTemporalLegend function
 
 		// Define updatePoints function and feed it the points data and the user-selected year
-		function updatePoints(gbPts, /*autoPts, barberPts, beautyPts, cafePts, drugPts, factoryPts, garagePts, hotelPts, motelPts, pubPts, restPts, servicePts, tailorPts, tavernPts, touristPts, */currentYear) {
+		function updatePoints(gbPts, /*autoPts, barberPts, beautyPts, cafePts, drugPts, factoryPts, garagePts, hotelPts, motelPts, pubPts, restPts, servicePts, tailorPts, tavernPts, touristPts, */ currentYear) {
 
 			// access each layer in the points data
 			gbPts.eachLayer(function(layer) {
@@ -712,7 +831,7 @@
 				}
 			});
 
-}; // End updatePoints function
+		}; // End updatePoints function
 	</script>
 
 </body>
