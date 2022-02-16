@@ -298,7 +298,7 @@
 
 	<script>
 		// add mapbox historic road map tiles
-		var accessToken = 'pk.eyJ1IjoiamVib3dlMyIsImEiOiJja3YxMXN1dXk3cm1xMzJxNjQ1bDNnc2t4In0.hLhht9e9GzCLV9uOIl0q9A'; // enter Mapbox access token
+		var accessToken = 'pk.eyJ1IjoiamVib3dlMyIsImEiOiJja3YxMXN1dXk3cm1xMzJxNjQ1bDNnc2t4In0.hLhht9e9GzCLV9uOIl0q9A'; // enter Mapbox GitHub access token
 
 		/*
 				// use the Jawg Sunny base map - nice, clean, not fussy
@@ -312,27 +312,45 @@
 		*/
 
 		var basemap = L.tileLayer('https://api.mapbox.com/styles/v1/jebowe3/ck6vfzgdu0its1imqxec1qskn/tiles/256/{z}/{x}/{y}@2x?access_token=' + accessToken);
+		var overmap1 = L.tileLayer('https://api.mapbox.com/styles/v1/jebowe3/ck788bszk0wt91imjbb16iy8l/tiles/256/{z}/{x}/{y}@2x?access_token=' + accessToken);
+		var overmap2 = L.tileLayer('https://api.mapbox.com/styles/v1/jebowe3/ck6vbdt990eiy1intt77mioei/tiles/256/{z}/{x}/{y}@2x?access_token=' + accessToken);
+		var overmap3 = L.tileLayer('https://api.mapbox.com/styles/v1/jebowe3/ck78dcwh52gq11io2ggxhtqtk/tiles/256/{z}/{x}/{y}@2x?access_token=' + accessToken);
+		var insets1952 = L.tileLayer('inset_tiles/{z}/{x}/{y}.png', {tms: true});
 
-		var map1940 = L.tileLayer('https://api.mapbox.com/styles/v1/jebowe3/ck788bszk0wt91imjbb16iy8l/tiles/256/{z}/{x}/{y}@2x?access_token=' + accessToken);
-		var map1950 = L.tileLayer('https://api.mapbox.com/styles/v1/jebowe3/ck6vbdt990eiy1intt77mioei/tiles/256/{z}/{x}/{y}@2x?access_token=' + accessToken);
-		var map1960 = L.tileLayer('https://api.mapbox.com/styles/v1/jebowe3/ck78dcwh52gq11io2ggxhtqtk/tiles/256/{z}/{x}/{y}@2x?access_token=' + accessToken);
-
-		var insets1952 = L.tileLayer('inset_tiles/{z}/{x}/{y}.png', {tms: true, opacity: 1.0, attribution: "", /*minZoom: 5*/minZoom: 13, maxZoom: 13});
-
-		var overmap1 = L.layerGroup([map1940, insets1952]);
-		var overmap2 = L.layerGroup([map1950, insets1952]);
-		var overmap3 = L.layerGroup([map1960, insets1952]);
+		var insets = L.layerGroup([basemap, insets1952]);
 
 		var map = L.map('map', {
-			layers: [basemap, overmap1, overmap2, overmap3]
+			//layers: [overmap1]
 		}).setView([42.0667, -93.4], 8);
 
+		//overmap1.addTo(map);
+
 		var baseMaps = {
-			"Contemporary": basemap,
-			"1960 Road Map": overmap3,
+			"1940 Road Map": overmap1,
 			"1950 Road Map": overmap2,
-			"1940 Road Map": overmap1
+			"1960 Road Map": overmap3,
+			"Contemporary": basemap,
+			"City Insets": insets
 		};
+
+		// get the zoom value
+		var mapZoom = map.getZoom();
+
+		// define the value in the slider
+		let currentYear = $('.slider').val();
+
+		// call the zoomMap function
+		zoomMap(mapZoom, currentYear);
+
+		// on zoom...
+		map.on('zoomend', function() {
+			// get the zoom value
+			var mapZoom = map.getZoom();
+			// define the value in the slider
+			let currentYear = $('.slider').val();
+			// call the zoomMap function
+			zoomMap(mapZoom, currentYear);
+		});
 
 		/* START DROPDOWN CODE */
 		/* When the user clicks on the button,
@@ -501,9 +519,6 @@
 			collapsed: isCollapsed
 		}).addTo(map);
 
-		// define the value in the slider
-		let currentYear = $('.slider').val();
-
 		const pointToLayerOpts = function(feature, ll) {
 			// return a marker
 			return L.marker(ll, {
@@ -619,6 +634,8 @@
 			$('.slider')
 				.on('input change', function() { // when the input changes...
 					let currentYear = $(this).val(); // identify the year selected with "currentYear"
+					let mapZoom = map.getZoom(); // get the zoom value
+					zoomMap(mapZoom, currentYear); // call the zoomMap function
 					createTemporalLegend(currentYear); // call the createTemporalLegend function
 					updatePoints(gbPts, /*autoPts, barberPts, beautyPts, cafePts, drugPts, factoryPts, garagePts, hotelPts, motelPts, pubPts, restPts, servicePts, tailorPts, tavernPts, touristPts, */
 					currentYear); // calls the updatePoints function to update the points data
@@ -819,6 +836,34 @@
 			});
 
 		}; // End updatePoints function
+
+		// define a function that determines which map layer should be on
+		function zoomMap(x, y) {
+
+			if (x > 12) {
+				insets.addTo(map);
+				map.removeLayer(overmap1);
+				map.removeLayer(overmap2);
+				map.removeLayer(overmap3);
+			} else if (x < 13 && y < 1950) {
+				map.removeLayer(insets);
+				map.removeLayer(overmap2);
+				map.removeLayer(overmap3);
+				overmap1.addTo(map);
+			} else if (x < 13 && y < 1960 && y > 1949) {
+				map.removeLayer(insets);
+				map.removeLayer(overmap1);
+				map.removeLayer(overmap3);
+				overmap2.addTo(map);
+			} else if (x < 13 && y < 1970 && y > 1959) {
+				map.removeLayer(insets);
+				map.removeLayer(overmap1);
+				map.removeLayer(overmap2);
+				overmap3.addTo(map);
+			}
+
+		}; // End zoomMap function
+
 	</script>
 
 </body>
