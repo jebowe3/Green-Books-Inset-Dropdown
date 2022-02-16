@@ -317,7 +317,7 @@
 		var map1950 = L.tileLayer('https://api.mapbox.com/styles/v1/jebowe3/ck6vbdt990eiy1intt77mioei/tiles/256/{z}/{x}/{y}@2x?access_token=' + accessToken);
 		var map1960 = L.tileLayer('https://api.mapbox.com/styles/v1/jebowe3/ck78dcwh52gq11io2ggxhtqtk/tiles/256/{z}/{x}/{y}@2x?access_token=' + accessToken);
 
-		var insets1952 = L.tileLayer('inset_tiles/{z}/{x}/{y}.png', {tms: true, opacity: 1.0, attribution: "", /*minZoom: 5*/minZoom: 11, maxZoom: 13});
+		var insets1952 = L.tileLayer('inset_tiles/{z}/{x}/{y}.png', {tms: true, opacity: 1.0, attribution: "", /*minZoom: 5*/minZoom: 13, maxZoom: 13});
 
 		var overmap1 = L.layerGroup([map1940, insets1952]);
 		var overmap2 = L.layerGroup([map1950, insets1952]);
