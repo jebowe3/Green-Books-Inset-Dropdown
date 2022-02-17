@@ -315,9 +315,9 @@
 		var overmap1 = L.tileLayer('https://api.mapbox.com/styles/v1/jebowe3/ck788bszk0wt91imjbb16iy8l/tiles/256/{z}/{x}/{y}@2x?access_token=' + accessToken);
 		var overmap2 = L.tileLayer('https://api.mapbox.com/styles/v1/jebowe3/ck6vbdt990eiy1intt77mioei/tiles/256/{z}/{x}/{y}@2x?access_token=' + accessToken);
 		var overmap3 = L.tileLayer('https://api.mapbox.com/styles/v1/jebowe3/ck78dcwh52gq11io2ggxhtqtk/tiles/256/{z}/{x}/{y}@2x?access_token=' + accessToken);
-		var insets1952 = L.tileLayer('inset_tiles/{z}/{x}/{y}.png', {tms: true});
+		var insets = L.tileLayer('inset_tiles/{z}/{x}/{y}.png', {tms: true}); // 1952 city inset maps
 
-		var insets = L.layerGroup([basemap, insets1952]);
+		//var insets = L.layerGroup([basemap, insets1952]);
 
 		var map = L.map('map', {
 			//layers: [overmap1]
