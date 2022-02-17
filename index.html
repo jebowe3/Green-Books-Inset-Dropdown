@@ -841,22 +841,26 @@
 		function zoomMap(x, y) {
 
 			if (x > 12) {
-				insets.addTo(map);
+				map.removeLayer(basemap);
 				map.removeLayer(overmap1);
 				map.removeLayer(overmap2);
 				map.removeLayer(overmap3);
+				insets.addTo(map);
 			} else if (x < 13 && y < 1950) {
 				map.removeLayer(insets);
+				map.removeLayer(basemap);
 				map.removeLayer(overmap2);
 				map.removeLayer(overmap3);
 				overmap1.addTo(map);
 			} else if (x < 13 && y < 1960 && y > 1949) {
 				map.removeLayer(insets);
+				map.removeLayer(basemap);
 				map.removeLayer(overmap1);
 				map.removeLayer(overmap3);
 				overmap2.addTo(map);
 			} else if (x < 13 && y < 1970 && y > 1959) {
 				map.removeLayer(insets);
+				map.removeLayer(basemap);
 				map.removeLayer(overmap1);
 				map.removeLayer(overmap2);
 				overmap3.addTo(map);
