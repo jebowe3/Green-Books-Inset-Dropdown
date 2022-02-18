@@ -319,12 +319,22 @@
 
 		var insets = L.layerGroup([basemap, insets1952]);
 
+		var historic = L.tileLayer('');
+		var contemporary = L.tileLayer('');
+
+		// dummy base layers
+		var baseMaps = {
+			"Historic Road Maps": historic,
+			"Contemporary Map": contemporary
+		}
+
 		var map = L.map('map', {
 			//layers: [overmap1]
+			maxZoom: 13,
 		}).setView([42.0667, -93.4], 8);
 
 		//overmap1.addTo(map);
-
+/*
 		var baseMaps = {
 			"1940 Road Map": overmap1,
 			"1950 Road Map": overmap2,
@@ -332,7 +342,7 @@
 			"Contemporary": basemap,
 			"City Insets": insets
 		};
-
+*/
 		// get the zoom value
 		var mapZoom = map.getZoom();
 
@@ -847,26 +857,98 @@
 				map.removeLayer(overmap3);
 				basemap.addTo(map);
 				insets.addTo(map);
+				map.on('baselayerchange', function() {
+					if (map.hasLayer(historic)) {
+						map.removeLayer(overmap1);
+						map.removeLayer(overmap2);
+						map.removeLayer(overmap3);
+						basemap.addTo(map);
+						insets.addTo(map);
+					} if (map.hasLayer(contemporary)) {
+						map.removeLayer(overmap1);
+						map.removeLayer(overmap2);
+						map.removeLayer(overmap3);
+						map.removeLayer(insets);
+						basemap.addTo(map);
+					}
+				});
 			} else if (x < 13 && y < 1950) {
 				map.removeLayer(insets);
 				map.removeLayer(basemap);
 				map.removeLayer(overmap2);
 				map.removeLayer(overmap3);
 				overmap1.addTo(map);
+				map.on('baselayerchange', function() {
+					if (map.hasLayer(historic)) {
+						map.removeLayer(insets);
+						map.removeLayer(basemap);
+						map.removeLayer(overmap2);
+						map.removeLayer(overmap3);
+						overmap1.addTo(map);
+					} if (map.hasLayer(contemporary)) {
+						map.removeLayer(overmap1);
+						map.removeLayer(overmap2);
+						map.removeLayer(overmap3);
+						map.removeLayer(insets);
+						basemap.addTo(map);
+					}
+				});
 			} else if (x < 13 && y < 1960 && y > 1949) {
 				map.removeLayer(insets);
 				map.removeLayer(basemap);
 				map.removeLayer(overmap1);
 				map.removeLayer(overmap3);
 				overmap2.addTo(map);
+				map.on('baselayerchange', function() {
+					if (map.hasLayer(historic)) {
+						map.removeLayer(insets);
+						map.removeLayer(basemap);
+						map.removeLayer(overmap1);
+						map.removeLayer(overmap3);
+						overmap2.addTo(map);
+					} if (map.hasLayer(contemporary)) {
+						map.removeLayer(overmap1);
+						map.removeLayer(overmap2);
+						map.removeLayer(overmap3);
+						map.removeLayer(insets);
+						basemap.addTo(map);
+					}
+				});
 			} else if (x < 13 && y < 1970 && y > 1959) {
 				map.removeLayer(insets);
 				map.removeLayer(basemap);
 				map.removeLayer(overmap1);
 				map.removeLayer(overmap2);
 				overmap3.addTo(map);
+				map.on('baselayerchange', function() {
+					if (map.hasLayer(historic)) {
+						map.removeLayer(insets);
+						map.removeLayer(basemap);
+						map.removeLayer(overmap1);
+						map.removeLayer(overmap2);
+						overmap3.addTo(map);
+					} if (map.hasLayer(contemporary)) {
+						map.removeLayer(overmap1);
+						map.removeLayer(overmap2);
+						map.removeLayer(overmap3);
+						map.removeLayer(insets);
+						basemap.addTo(map);
+					}
+				});
 			}
+/*
+			map.on('baselayerchange', function(e) {
 
+				if (map.hasLayer(historic)) {
+					console.log('historic');
+					console.log(y);
+				} if (map.hasLayer(contemporary)) {
+					console.log('contemporary');
+					console.log(y);
+				}
+
+			});
+*/
 		}; // End zoomMap function
 
 	</script>
